@@ -6,7 +6,7 @@ export default function Page() {
       <InnerPageContainer title="About Us">
             <PageMetaTags title="About Us" description={"GST and ITR Filing Services"} url="/about-us"/>
             <p className="mt-8">
-            Welcome to [Your Company Name], your trusted partner for hassle-free GST and ITR filing! We specialize in making tax compliance easy, efficient, and stress-free for businesses and individuals. Our expert team is committed to providing accurate and timely tax solutions tailored to your needs.
+            Welcome to Bharat Tax file , your trusted partner for hassle-free GST and ITR filing! We specialize in making tax compliance easy, efficient, and stress-free for businesses and individuals. Our expert team is committed to providing accurate and timely tax solutions tailored to your needs.
             </p>
 
             <h3 className="mt-8 font-bold text-xl">Our Mission</h3>
