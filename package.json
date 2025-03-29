@@ -1,6 +1,6 @@
 {
-  "name": "tailwind_landing_page",
-  "description": "Landing page using next js, tailwind css and daisy UI. Template uses rich tailwind css utility classes and have components of daisy UI.",
+  "name": "gst-nextjs-landing-page",
+  "description": "A Next.js landing page template using DaisyUI and Tailwind CSS",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,10 +9,7 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/srobbin01/daisyui-nextjs-landing-page"
-  },
+ 
   "keywords": [
     "reactjs",
     "tailwind-css",
@@ -21,11 +18,9 @@
     "landing=page-template",
     "nextjs"
   ],
-  "author": "srobbin01",
+  "author": "Nishant prakash pandey",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/srobbin01/daisyui-nextjs-landing-page/issues"
-  },
+ 
   "dependencies": {
     "@heroicons/react": "^2.0.15",
     "@next/font": "13.1.6",

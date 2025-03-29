@@ -3,14 +3,14 @@ import PageMetaTags from "@/containers/PageMetaTags";
 
 export default function Page() {
     return (
-      <InnerPageContainer title="Privacy Policy">
-            <PageMetaTags title="Privacy Policy" description={""} url="/privacy-policy"/>
+        <InnerPageContainer title="Privacy Policy">
+            <PageMetaTags title="Privacy Policy" description="Learn how we handle your data while using our GST and ITR filing platform." url="/privacy-policy" />
             <p className="mt-8">
-            Web Design AI  is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal information when you visit our website or use our design services powered by AI (the design service).
-            <br />
-            <br />
-           </p>
-      </InnerPageContainer>
-    )
-  }
-  
+                Our platform is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal information when you use our GST and ITR filing services.
+                <br />
+                <br />
+                We ensure that your data is handled securely and in compliance with applicable laws and regulations.
+            </p>
+        </InnerPageContainer>
+    );
+}
