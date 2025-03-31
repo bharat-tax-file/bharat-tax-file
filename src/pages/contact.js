@@ -57,9 +57,9 @@ export default function Page() {
                 <div className="p-6 bg-gray-800 text-white rounded-lg">
                     <h3 className="text-lg font-semibold">Get in Touch</h3>
                     <p className="mt-2">
-                        📞 Call us: <a href="tel:+91123456789" className="underline">+91 123456789</a>  
+                        📞 Call us: <a href="tel:+91123456789" className="underline">+91 9205174213</a>  
                         <br />
-                        📧 Email: <a href="mailto:contact@d.com" className="underline">contact@d.com</a>  
+                        📧 Email: <a href="mailto:contact@d.com" className="underline">easyreturn@bharattaxfile.com</a>  
                         <br />
                       
                     </p>
