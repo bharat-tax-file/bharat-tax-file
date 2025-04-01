@@ -11,46 +11,58 @@ export default function Page() {
             />
 
             <div className="mt-12 space-y-8 text-gray-700">
-                {/* Introduction */}
-                <p className="text-lg font-semibold">
-                    Your Trusted Partner for GST & ITR Services
-                </p>
-                <p>
-                    We specialize in GST registration, tax compliance, and ITR filin to help businesses and individuals stay compliant while optimizing tax benefits. Our team of certified tax professionals ensures accurate, timely, and hassle-free tax solutions tailored to your needs.
-                </p>
-
-                {/* Services Overview */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* GST Services */}
-                    <div className="p-4 border border-gray-200 rounded-lg bg-gray-50">
-                        <h3 className="text-lg font-semibold text-blue-700">GST Services</h3>
-                        <ul className="list-disc pl-5 mt-2 space-y-1">
-                            <li>GST Registration & Compliance</li>
-                            <li>Monthly GST Return Filing</li>
-                            <li>GST Audit & Reconciliation</li>
-                        </ul>
-                    </div>
-
-                    {/* ITR Services */}
-                    <div className="p-4 border border-gray-200 rounded-lg bg-gray-50">
-                        <h3 className="text-lg font-semibold text-green-700">ITR Filing Services</h3>
-                        <ul className="list-disc pl-5 mt-2 space-y-1">
-                            <li>Individual & Business ITR Filing</li>
-                            <li>Tax Planning & Deductions</li>
-                            <li>Income Tax Assessments</li>
-                        </ul>
-                    </div>
-                </div>
-
-                {/* Why Choose Us */}
-                <div className="p-6 bg-blue-50 border border-blue-200 rounded-lg">
-                    <h3 className="text-lg font-semibold text-blue-700">Why Choose Us?</h3>
-                    <ul className="list-disc pl-5 mt-2 space-y-1">
-                        <li>Certified Tax Experts with years of experience</li>
-                        <li>Fast & Error-Free Filing to avoid penalties</li>
-                        <li>Affordable Pricing with transparent processes</li>
-                        <li>Dedicated Suppor for all tax-related queries</li>
-                    </ul>
+                {/* Contact Form */}
+                <div className="p-6 bg-gray-100 rounded-lg">
+                    <h3 className="text-lg font-semibold text-gray-800">Send Us a Message</h3>
+                    <form className="mt-4 space-y-4">
+                        <div>
+                            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                                Name
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="Your Name"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                                Phone Number
+                            </label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="Your Phone Number"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                                Message
+                            </label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                rows="4"
+                                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="Your Message"
+                                required
+                            ></textarea>
+                        </div>
+                        <div>
+                            <button
+                                type="submit"
+                                className="w-full px-4 py-2 text-white bg-blue-600 rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
                 {/* Contact Information */}
@@ -60,8 +72,6 @@ export default function Page() {
                         📞 Call us: <a href="tel:+91123456789" className="underline">+91 9205174213</a>  
                         <br />
                         📧 Email: <a href="mailto:contact@d.com" className="underline">easyreturn@bharattaxfile.com</a>  
-                        <br />
-                      
                     </p>
                 </div>
             </div>
