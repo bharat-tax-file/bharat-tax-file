@@ -4,10 +4,14 @@ import PageMetaTags from "@/containers/PageMetaTags";
 export default function Page() {
     return (
         <InnerPageContainer title="Terms and Conditions">
-            <PageMetaTags title="Terms and Conditions" description="Terms and Conditions for our GST and ITR filing services" url="/terms-and-conditions"/>
+            <PageMetaTags 
+                title="Terms and Conditions" 
+                description="Terms and Conditions for our GST and ITR filing services" 
+                url="/terms-and-conditions"
+            />
 
             <p className="mt-8">
-                Welcome to our website (referred to as "we," "us," or "our"). By accessing or using our services, including GST filing, Income Tax Return (ITR) filing, and related financial services (the "Services"), you agree to comply with and be bound by the following Terms and Conditions ("Terms"). If you do not agree with these Terms, please do not use our website or Services.
+                Welcome to our website (referred to as &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). By accessing or using our services, including GST filing, Income Tax Return (ITR) filing, and related financial services (the &quot;Services&quot;), you agree to comply with and be bound by the following Terms and Conditions (&quot;Terms&quot;). If you do not agree with these Terms, please do not use our website or Services.
             </p>
 
             <h2 className="mt-6 font-bold">1. Service Scope</h2>
@@ -48,7 +52,7 @@ export default function Page() {
 
             <h2 className="mt-6 font-bold">7. Contact Information</h2>
             <p className="mt-4">
-                If you have any questions regarding these Terms, please contact us at [your email/contact details].  
+                If you have any questions regarding these Terms, please contact us at easyreturn@bharattaxfile.com
             </p>
         </InnerPageContainer>
     );
