@@ -30,6 +30,8 @@ export default function Layout({ children }) {
             <Link href="/about-us">about us</Link>
             <Link href="/services">Services</Link>
             <Link href="/contact">contact us</Link>
+            <Link href="/terms-and-conditions">Terms and Conditions</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
             
             
         </li>
