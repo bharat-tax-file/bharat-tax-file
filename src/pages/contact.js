@@ -11,7 +11,8 @@ export default function Page() {
             />
 
             <div className="mt-12 space-y-8 text-gray-700">
-                {/* Contact Form */}
+                {/* Contact Form - Currently Commented Out */}
+                {/* 
                 <div className="p-6 bg-gray-100 rounded-lg">
                     <h3 className="text-lg font-semibold text-gray-800">Send Us a Message</h3>
                     <form className="mt-4 space-y-4">
@@ -64,6 +65,7 @@ export default function Page() {
                         </div>
                     </form>
                 </div>
+                */}
 
                 {/* Contact Information */}
                 <div className="p-6 bg-gray-800 text-white rounded-lg">

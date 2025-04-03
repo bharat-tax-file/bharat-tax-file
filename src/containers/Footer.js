@@ -20,7 +20,7 @@ function Footer() {
           <h2 className="text-lg font-semibold text-gray-800 mb-2">Legal</h2>
           <ul className="space-y-1 text-gray-600">
             <li><Link href="/privacy-policy">Privacy Policy</Link></li>
-            <li><Link href="/terms">Terms & Conditions</Link></li>
+            <li><Link href="/terms-and-conditions">Terms & Conditions</Link></li>
           </ul>
         </div>
       </div>

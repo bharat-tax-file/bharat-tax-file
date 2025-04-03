@@ -28,11 +28,12 @@ function Navbar() {
             </button>
           </div>
 
-          {/* Logo */}
-          <div className="md:flex-1 flex-none px-2 mx-2">
-            <Link href="/">
-              <span className="font-bold text-xl">Bharat Tax File</span>
-            </Link>
+          {/* Logo and ICO Icon */}
+          <div className="md:flex-1 flex-none px-2 mx-2 flex items-center">
+          
+         <span className="font-bold text-xl">Bharat Tax File</span>
+        
+
           </div>
         </div>
 
@@ -51,7 +52,6 @@ function Navbar() {
             <li>
               <Link href="/contact" onClick={closeDrawer}>Contact Us</Link>
             </li>
-           
           </ul>
         </div>
 
@@ -86,8 +86,6 @@ function Navbar() {
           <li>
             <Link href="/contact" onClick={closeDrawer}>Contact Us</Link>
           </li>
-         
-         
         </ul>
       </div>
     </div>

@@ -1,5 +1,5 @@
 
-import { Inter } from '@next/font/google'
+import { Inter } from "next/font/google"
 
 import Hero from '@/components/home/Hero'
 import Features from '@/components/home/Features'
