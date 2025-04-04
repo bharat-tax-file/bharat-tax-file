@@ -13,7 +13,7 @@ export default function Layout({ children }) {
                 <meta name="robots" content="index, follow" />
                 <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
                 <meta name="author" content="Tax Filing Platform" />
-                <link rel="icon" href="/favicon-32x32.png" />
+                <link rel="icon" href="/favicon.png" />
             </Head>
             <div className="flex flex-col min-h-screen">
                 <Navbar />
