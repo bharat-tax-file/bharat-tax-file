@@ -11,49 +11,62 @@ export default function Layout({ children }) {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="keywords" content="GST Filing, ITR Filing, Tax Filing, Bharat Tax File" />
-        <meta name="description" content="Simplify your GST & ITR filing with Bharat Tax File. Fast, easy, and secure tax platform in India." />
+        <meta
+          name="description"
+          content="File GST & ITR quickly with Bharat Tax File – trusted, secure and easy tax filing platform in India."
+        />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="Bharat Tax File" />
 
-        {/* Page Title */}
+        {/* Title */}
         <title>Bharat Tax File | Fast & Secure Tax Filing Platform</title>
 
-        {/* Favicon & Icons */}
+        {/* Favicon & Apple Icon */}
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
 
-        {/* Open Graph for Social Media */}
+        {/* Open Graph Meta for Social Sharing */}
         <meta property="og:title" content="Bharat Tax File | File ITR & GST Online" />
-        <meta property="og:description" content="Easy, accurate, and fast tax filing services." />
+        <meta
+          property="og:description"
+          content="File GST & ITR quickly with Bharat Tax File – trusted, secure and easy tax filing platform in India."
+        />
         <meta property="og:image" content="https://bharattaxfile.com/favicon.png" />
         <meta property="og:url" content="https://bharattaxfile.com" />
         <meta property="og:type" content="website" />
 
-        {/* Structured Data for Logo */}
+        {/* Twitter Card Meta */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Bharat Tax File | File ITR & GST Online" />
+        <meta
+          name="twitter:description"
+          content="File GST & ITR quickly with Bharat Tax File – trusted, secure and easy tax filing platform in India."
+        />
+        <meta name="twitter:image" content="https://bharattaxfile.com/favicon.png" />
+
+        {/* Structured Data for SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: `
-              {
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                "name": "Bharat Tax File",
-                "url": "https://bharattaxfile.com",
-                "logo": "https://bharattaxfile.com/favicon.png"
-              }
-            `,
+            __html: `{
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Bharat Tax File",
+              "url": "https://bharattaxfile.com",
+              "logo": "https://bharattaxfile.com/favicon.png"
+            }`,
           }}
         />
       </Head>
 
-      {/* Layout Structure */}
+      {/* Layout Wrapper */}
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />
       </div>
 
-      {/* Drawer Menu (Mobile Navigation) */}
+      {/* Mobile Drawer Menu */}
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
