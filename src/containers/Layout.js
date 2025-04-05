@@ -9,52 +9,77 @@ export default function Layout({ children }) {
       <Head>
         {/* Essential Meta Tags */}
         <meta charSet="UTF-8" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="keywords" content="GST Filing, ITR Filing, Tax Filing, Bharat Tax File" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="theme-color" content="#005BAC" />
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        <meta name="author" content="Bharat Tax File Team" />
         <meta
           name="description"
-          content="File GST & ITR quickly with Bharat Tax File – trusted, secure and easy tax filing platform in India."
+          content="Bharat Tax File offers quick, secure, and hassle-free ITR & GST filing services in India. Trusted by individuals and businesses across Bharat."
         />
-        <meta name="robots" content="index, follow" />
-        <meta name="author" content="Bharat Tax File" />
+        <meta name="keywords" content="ITR filing, GST filing, tax filing India, Bharat Tax File, file ITR online, file GST online, income tax, online tax services" />
 
         {/* Title */}
-        <title>Bharat Tax File | Fast & Secure Tax Filing Platform</title>
+        <title>Bharat Tax File | Fast, Secure GST & ITR Filing in India</title>
 
-        {/* Favicon & Apple Icon */}
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://bharattaxfile.com" />
 
-        {/* Open Graph Meta for Social Sharing */}
-        <meta property="og:title" content="Bharat Tax File | File ITR & GST Online" />
+        {/* Favicons */}
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#005BAC" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta name="msapplication-TileColor" content="#005BAC" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+
+        {/* Open Graph for Social Media */}
+        <meta property="og:title" content="Bharat Tax File | File ITR & GST Online in India" />
         <meta
           property="og:description"
-          content="File GST & ITR quickly with Bharat Tax File – trusted, secure and easy tax filing platform in India."
+          content="Bharat Tax File is India's trusted platform for fast, secure, and hassle-free online tax filing. File your ITR and GST today!"
         />
-        <meta property="og:image" content="https://bharattaxfile.com/favicon.png" />
+        <meta property="og:image" content="https://bharattaxfile.com/android-chrome-512x512.png" />
         <meta property="og:url" content="https://bharattaxfile.com" />
         <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_IN" />
+        <meta property="og:site_name" content="Bharat Tax File" />
 
-        {/* Twitter Card Meta */}
+        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Bharat Tax File | File ITR & GST Online" />
+        <meta name="twitter:title" content="Bharat Tax File | File ITR & GST Online in India" />
         <meta
           name="twitter:description"
-          content="File GST & ITR quickly with Bharat Tax File – trusted, secure and easy tax filing platform in India."
+          content="Bharat Tax File offers secure and easy online tax filing in India. Trusted by thousands for ITR & GST filing."
         />
-        <meta name="twitter:image" content="https://bharattaxfile.com/favicon.png" />
+        <meta name="twitter:image" content="https://bharattaxfile.com/android-chrome-512x512.png" />
 
-        {/* Structured Data for SEO */}
+        {/* Structured Data (Organization) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: `{
+            __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "Bharat Tax File",
-              "url": "https://bharattaxfile.com",
-              "logo": "https://bharattaxfile.com/favicon.png"
-            }`,
+              name: "Bharat Tax File",
+              url: "https://bharattaxfile.com",
+              logo: "https://bharattaxfile.com/android-chrome-512x512.png",
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+91-XXXXXXXXXX",
+                contactType: "Customer Service",
+                areaServed: "IN",
+                availableLanguage: ["English", "Hindi"],
+              },
+              sameAs: [
+                "https://www.facebook.com/bharattaxfile",
+                "https://www.instagram.com/bharattaxfile",
+                "https://www.linkedin.com/company/bharattaxfile"
+              ]
+            }),
           }}
         />
       </Head>
@@ -66,7 +91,7 @@ export default function Layout({ children }) {
         <Footer />
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Drawer for Mobile */}
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
