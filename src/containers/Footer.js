@@ -1,10 +1,5 @@
 import Link from "next/link";
-import {
-  FaInstagram,
-  FaFacebookF,
-  FaTwitter,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { FaInstagram, FaFacebookF } from "react-icons/fa";
 
 function Footer() {
   return (
@@ -22,10 +17,24 @@ function Footer() {
             <p className="mt-4 text-sm font-medium text-gray-400">📞 +91 9205174213</p>
 
             <div className="mt-4 flex gap-4 text-xl text-gray-400">
-              <a href="#" className="hover:text-blue-400 transition" aria-label="Instagram"><FaInstagram /></a>
-              <a href="#" className="hover:text-blue-400 transition" aria-label="Facebook"><FaFacebookF /></a>
-              <a href="#" className="hover:text-blue-400 transition" aria-label="Twitter"><FaTwitter /></a>
-              <a href="#" className="hover:text-blue-400 transition" aria-label="LinkedIn"><FaLinkedinIn /></a>
+              <a
+                href="https://www.instagram.com/bharattaxfile?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 transition"
+                aria-label="Instagram"
+              >
+                <FaInstagram />
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61575033451690"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 transition"
+                aria-label="Facebook"
+              >
+                <FaFacebookF />
+              </a>
             </div>
           </div>
 
