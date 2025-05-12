@@ -23,15 +23,21 @@ export default function ContactPage() {
             transition={{ duration: 0.5 }}
             className="bg-blue-50 p-10 rounded-3xl shadow-lg"
           >
-            <h3 className="text-3xl font-bold text-blue-700 mb-6">We'd love to hear from you</h3>
+            <h3 className="text-3xl font-bold text-blue-700 mb-6">
+              We&rsquo;d love to hear from you
+            </h3>
             <div className="space-y-4 text-lg">
               <p className="flex items-center gap-3">
                 <FaPhoneAlt className="text-blue-600" />
-                <a href="tel:+919205174213" className="hover:underline">+91 9205174213</a>
+                <a href="tel:+919205174213" className="hover:underline">
+                  +91 9205174213
+                </a>
               </p>
               <p className="flex items-center gap-3">
                 <FaEnvelope className="text-blue-600" />
-                <a href="mailto:easyreturn@bharattaxfile.com" className="hover:underline">easyreturn@bharattaxfile.com</a>
+                <a href="mailto:easyreturn@bharattaxfile.com" className="hover:underline">
+                  easyreturn@bharattaxfile.com
+                </a>
               </p>
               <a
                 href="https://wa.me/919205174213"
@@ -58,7 +64,7 @@ export default function ContactPage() {
               className="space-y-6"
             >
               <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_next" value="https://bharattaxfile.com/thank" /> {/* Ensure this points to the correct URL for the Thank You page */}
+              <input type="hidden" name="_next" value="https://bharattaxfile.com/thank" />
 
               <div>
                 <label className="block text-sm font-medium">Full Name</label>
