@@ -1,12 +1,13 @@
 import InnerPageContainer from "@/components/common/InnerPageContainer";
 import PageMetaTags from "@/containers/PageMetaTags";
+import Link from "next/link";
 
 export default function Page() {
   return (
     <InnerPageContainer title="">
       <PageMetaTags
-        title="About Us"
-        description="GST and ITR Filing Services by Bharat Tax File"
+        title="About Us - Bharat Tax File"
+        description="GST and ITR Filing Services by Bharat Tax File. Expert consultancy for hassle-free tax filing."
         url="/about-us"
       />
 
@@ -20,14 +21,16 @@ export default function Page() {
         </p>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+          {/* Our Mission Section */}
           <div className="bg-white p-8 rounded-2xl border border-blue-100 shadow">
             <h3 className="text-2xl font-bold text-[#1E3A8A] mb-4">Our Mission</h3>
             <p className="text-gray-600">
-              To empower individuals and businesses to meet their tax obligations effortlessly.
-              We use modern tech and expert advice to reduce stress and maximize accuracy.
+              To empower individuals and businesses to meet their tax obligations effortlessly. We use modern
+              technology and expert advice to reduce stress and maximize accuracy.
             </p>
           </div>
 
+          {/* Why Choose Us Section */}
           <div className="bg-white p-8 rounded-2xl border border-blue-100 shadow">
             <h3 className="text-2xl font-bold text-[#1E3A8A] mb-4">Why Choose Us?</h3>
             <ul className="list-disc pl-5 text-gray-600 space-y-1">
@@ -43,15 +46,15 @@ export default function Page() {
         <div className="text-center mt-16">
           <h3 className="text-2xl font-bold text-[#1E3A8A] mb-4">Get Started Today</h3>
           <p className="text-gray-700 max-w-xl mx-auto">
-            Join thousands who trust us with their tax filing needs. Whether you're a small business or an individual,
-            we make tax filing smooth and secure.
+            Join thousands who trust us with their tax filing needs. Whether you're a small business or an
+            individual, we make tax filing smooth, secure, and stress-free.
           </p>
-          <a
+          <Link
             href="/contact"
             className="inline-block mt-6 px-8 py-3 bg-[#3B82F6] text-white rounded-full shadow hover:bg-[#2563EB] transition"
           >
             Start Filing Now
-          </a>
+          </Link>
         </div>
       </section>
     </InnerPageContainer>

@@ -1,5 +1,3 @@
-'use client';
-
 import dynamic from "next/dynamic";
 import { FaWhatsapp, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -60,7 +58,7 @@ export default function ContactPage() {
               className="space-y-6"
             >
               <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_next" value="https://yourdomain.com/thank-you" />
+              <input type="hidden" name="_next" value="https://bharattaxfile.com/thank" /> {/* Ensure this points to the correct URL for the Thank You page */}
 
               <div>
                 <label className="block text-sm font-medium">Full Name</label>
