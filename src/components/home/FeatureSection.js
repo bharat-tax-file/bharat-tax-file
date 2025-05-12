@@ -54,3 +54,4 @@ function FeatureSection({ title, leftText, showHeading }) {
 }
 
 export default FeatureSection;
+ 
