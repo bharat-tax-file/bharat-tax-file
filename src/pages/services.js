@@ -53,7 +53,7 @@ export default function ServicesPage() {
   ];
 
   return (
-    <InnerPageContainer title="Our Services">
+    <InnerPageContainer title="">
       <PageMetaTags
         title="Our Services - Income Tax, GST & FSSAI Experts"
         description="Professional tax solutions including Income Tax Returns, GST Filing, and FSSAI Registration. Trusted financial experts at your service."
