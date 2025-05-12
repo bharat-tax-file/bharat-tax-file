@@ -46,7 +46,7 @@ export default function Page() {
         <div className="text-center mt-16">
           <h3 className="text-2xl font-bold text-[#1E3A8A] mb-4">Get Started Today</h3>
           <p className="text-gray-700 max-w-xl mx-auto">
-            Join thousands who trust us with their tax filing needs. Whether you're a small business or an
+            Join thousands who trust us with their tax filing needs. Whether you&rsquo;re a small business or an
             individual, we make tax filing smooth, secure, and stress-free.
           </p>
           <Link
