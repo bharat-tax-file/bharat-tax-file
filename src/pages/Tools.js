@@ -21,8 +21,8 @@ const tools = [
     description: "Simplify your GST return filing process with our easy-to-use calculator.",
   },
   {
-    href: "/tools/income-tax-return-calculator",
-    title: "Income Tax Return Calculator",
+    href: "/tools/income-tax-calculator",
+    title: "Income Tax Calculator",
     icon: Calculator,
     description: "Calculate your income tax liability quickly and accurately.",
   },
