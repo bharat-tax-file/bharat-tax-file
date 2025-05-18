@@ -15,7 +15,7 @@ import {
 
 const tools = [
   {
-    href: "/tools/gstcalc",
+    href: "/tools/gstcalc.js",
     title: "GST Calculator",
     icon: FileText,
     description: "Simplify your GST return filing process with our easy-to-use calculator.",
