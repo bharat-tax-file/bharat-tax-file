@@ -52,6 +52,10 @@ function Navbar() {
             <li>
               <Link href="/contact" onClick={closeDrawer}>Contact Us</Link>
             </li>
+             <li>
+            <Link href="/Tools" onClick={closeDrawer}>Tools</Link>
+          </li>
+            
           </ul>
         </div>
 
@@ -85,6 +89,9 @@ function Navbar() {
           </li>
           <li>
             <Link href="/contact" onClick={closeDrawer}>Contact Us</Link>
+          </li>
+          <li>
+            <Link href="/Tools" onClick={closeDrawer}>Tools</Link>
           </li>
         </ul>
       </div>
