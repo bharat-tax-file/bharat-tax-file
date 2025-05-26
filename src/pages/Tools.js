@@ -21,13 +21,13 @@ const tools = [
     description: "Simplify your GST return filing process with our easy-to-use calculator.",
   },
   {
-    href: "/tools/income-tax-return-calculator",
-    title: "Income Tax Return Calculator",
+    href: "/tools/income-tax-calculator",
+    title: "Income Tax Calculator",
     icon: Calculator,
     description: "Calculate your income tax liability quickly and accurately.",
   },
   {
-    href: "/tools/capital-gains-calculator",
+    href: "/tools/capital-gain-calculator",
     title: "Capital Gains Calculator",
     icon: TrendingUp,
     description: "Track and calculate your capital gains for tax filing.",
@@ -58,6 +58,7 @@ const tools = [
   },
 ];
 
+
 export default function ToolsIntro() {
   return (
     <>
@@ -78,7 +79,7 @@ export default function ToolsIntro() {
           </h1>
           
          
-          <div className="mt-12 w-72 h-72 mx-auto rounded-3xl overflow-hidden shadow-2xl ring-8 ring-pink-400/40 backdrop-blur-lg bg-white/10">
+          <div className="mt-12 w-72 h-72 mx-auto rounded-3xl overflow-hidden szhadow-2xl ring-8 ring-pink-400/40 backdrop-blur-lg bg-white/10">
             <Image
               src="/pic1.jpg"
               alt="Finance Tools"
@@ -98,7 +99,7 @@ export default function ToolsIntro() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {tools.map(({ href, title, icon: Icon, description }) => (
               <Link
-                key={href}
+                key={href}  
                 href={href}
                 className="group flex flex-col items-center justify-center bg-white shadow-md rounded-xl p-6 cursor-pointer hover:shadow-xl transition-shadow"
               >
