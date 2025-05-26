@@ -2,8 +2,12 @@ import Link from "next/link";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Head from "next/head";
+ 
+// This Layout component wraps all pages and includes SEO tags, header, footer, and responsive mobile drawer and this is seo optimized
+// for better search engine visibility and user experience.
+// It uses Next.js's Head component for SEO and includes a responsive mobile navigation drawer.
+// The component is structured to include a navbar, main content area, and footer.
 
-// This Layout component wraps all pages and includes SEO tags, header, footer, and responsive mobile drawer
 export default function Layout({ children }) {
   return (
     <>
@@ -17,7 +21,7 @@ export default function Layout({ children }) {
         <meta name="author" content="Bharat Tax File Team" />
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
-        {/* ===== SEO Title and Description ===== */}
+        {/* ===== SEO Title and Description for better seo resultsssssss hjvfj ===== */}
         <title>Tax Filing in India | File ITR & GST Online - Bharat Tax File</title>
         <meta
           name="description"
