@@ -12,14 +12,14 @@ const slides = [
   },
   {
     icon: <FaRegCheckCircle className="text-5xl text-green-400 drop-shadow-glow" />,
-    title: "Expert Support on Tax Matters",
-    description: "Talk to certified professionals for your tax queries and filing.",
+    title: "Tool for Professionals and Businesses ",
+    description: "use our financial tools to manage your taxes efficiently.",
     button: false,
   },
   {
     icon: <FaRegLightbulb className="text-5xl text-yellow-300 drop-shadow-glow" />,
-    title: "Trusted by Thousands",
-    description: "India’s most reliable online tax filing platform.",
+    title: "Tax Filing Made Easy",
+    description: "Convenient and hassle-free tax filing at your fingertips.",
     button: false,
   },
 ];
