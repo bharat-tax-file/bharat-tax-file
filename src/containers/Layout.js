@@ -4,6 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Login from "../pages/login";
 
+
 // ✅ Layout Component
 export default function Layout({ children }) {
   return (
