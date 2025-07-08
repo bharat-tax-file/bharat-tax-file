@@ -61,6 +61,9 @@ function Navbar() {
             <li>
               <Link href="/Tools" onClick={closeDrawer}>Tools</Link>
             </li>
+            <li>
+              <Link href="/login" onClick={closeDrawer}>Login</Link>
+            </li>
           </ul>
         </div>
 
@@ -119,6 +122,9 @@ function Navbar() {
           </li>
           <li>
             <Link href="/Tools" onClick={closeDrawer} className="text-xl font-semibold">Tools</Link>
+          </li>
+          <li>
+            <Link href="/login" onClick={closeDrawer} className="text-xl font-semibold">Login</Link>
           </li>
         </ul>
       </div>
