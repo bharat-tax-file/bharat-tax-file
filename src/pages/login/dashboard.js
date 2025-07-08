@@ -1,23 +1,27 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import withAuth from "@/utils/withAuth";
+import { signOut } from "firebase/auth";
 import { auth } from "@/utils/firebase";
-import { onAuthStateChanged } from "firebase/auth";
 
-export default function Dashboard() {
-  const router = useRouter();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        router.push("/login");
-      }
-    });
-  }, []);
+function Dashboard({ user }) {
+  const handleLogout = async () => {
+    await signOut(auth);
+    window.location.href = "/login";
+  };
 
   return (
-    <div className="p-10">
-      <h1 className="text-3xl font-bold text-indigo-700">Welcome to your Dashboard 🎉</h1>
-      <p className="text-gray-600 mt-2">Secure content only visible after login.</p>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="bg-white shadow-lg rounded-xl p-10 max-w-xl text-center">
+        <h1 className="text-3xl font-bold text-indigo-700 mb-4">Dashboard</h1>
+        <p className="text-gray-600 mb-6">Logged in as: <b>{user.email}</b></p>
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 }
+
+export default withAuth(Dashboard);
