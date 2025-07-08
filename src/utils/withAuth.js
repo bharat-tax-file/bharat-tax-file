@@ -3,18 +3,18 @@ import { useRouter } from "next/router";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 
-export default function withAuth(Component) {
-  return function ProtectedPage(props) {
+const withAuth = (WrappedComponent) => {
+  return function ProtectedComponent(props) {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState(null);
+    const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (!user) {
-          router.replace("/login");
+        if (user) {
+          setAuthenticated(true);
         } else {
-          setUser(user);
+          router.replace("/login"); // redirect if not logged in
         }
         setLoading(false);
       });
@@ -22,16 +22,10 @@ export default function withAuth(Component) {
       return () => unsubscribe();
     }, [router]);
 
-    if (loading) {
-      return (
-        <div className="min-h-screen flex items-center justify-center text-gray-600">
-          Verifying session...
-        </div>
-      );
-    }
+    if (loading) return <p className="text-center mt-10">Loading...</p>;
 
-    if (!user) return null; // block access
-
-    return <Component {...props} user={user} />;
+    return authenticated ? <WrappedComponent {...props} /> : null;
   };
-}
+};
+
+export default withAuth;
