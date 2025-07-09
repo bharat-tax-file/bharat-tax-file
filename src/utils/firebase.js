@@ -1,18 +1,19 @@
+// firebase.js or firebaseConfig.ts
+
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBeRL9m-PaI8If419YMm2HX7NBtNcEdXCI",
-  authDomain: "bharat-tax-file.firebaseapp.com",
-  projectId: "bharat-tax-file",
-  storageBucket: "bharat-tax-file.appspot.com",
-  messagingSenderId: "517875734348",
-  appId: "1:517875734348:web:86ea718a84fdd4d4b9e1e9",
-  measurementId: "G-5JYX70RTG5",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
 
 export { auth };
-  
