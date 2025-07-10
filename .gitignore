@@ -42,3 +42,7 @@ firebase-admin.json
 
 # General fallback
 *.key.json
+
+firebase-admin.js
+# in .gitignore
+src/utils/firebase-admin.json
