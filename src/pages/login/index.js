@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  setPersistence,
+  inMemoryPersistence, // ✅ Correctly imported
+} from "firebase/auth";
 import { auth } from "@/utils/firebase";
 import Link from "next/link";
 
@@ -15,6 +19,7 @@ export default function LoginPage() {
     setError("");
 
     try {
+      await setPersistence(auth, inMemoryPersistence); // ✅ This logs out on tab close
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/login/dashboard");
     } catch (err) {

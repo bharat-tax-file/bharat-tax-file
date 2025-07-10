@@ -30,6 +30,7 @@
     "eslint-config-next": "13.1.6",
     "file-saver": "^2.0.5",
     "firebase": "^11.10.0",
+    "firebase-admin": "^13.4.0",
     "framer-motion": "^12.23.0",
     "gsap": "^3.12.7",
     "html2canvas": "^1.4.1",
