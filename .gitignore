@@ -33,3 +33,16 @@ yarn-error.log*
 
 .env
 .env.local
+# Firebase configuration or service keys
+firebaseConfig.json
+serviceAccountKey.json
+*.firebase.json
+*.secret.json
+firebase-admin.json
+
+# General fallback
+*.key.json
+
+firebase-admin.js
+# in .gitignore
+src/utils/firebase-admin.json

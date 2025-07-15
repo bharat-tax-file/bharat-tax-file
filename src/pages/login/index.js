@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  setPersistence,
+  inMemoryPersistence,
+} from "firebase/auth";
 import { auth } from "@/utils/firebase";
+import nookies from "nookies";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -15,7 +20,22 @@ export default function LoginPage() {
     setError("");
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      // Set persistence to inMemory so user is logged out on tab close
+      await setPersistence(auth, inMemoryPersistence);
+
+      // Sign in user
+      const userCred = await signInWithEmailAndPassword(auth, email, password);
+
+      // Get ID token and store it in cookies
+      const token = await userCred.user.getIdToken();
+
+      // Store token as cookie (for SSR use)
+      nookies.set(null, "token", token, {
+        path: "/",
+        maxAge: 7 * 24 * 60 * 60, // 7 days
+      });
+
+      // Redirect to dashboard
       router.push("/login/dashboard");
     } catch (err) {
       setError("❌ " + err.message.replace("Firebase:", "").trim());
