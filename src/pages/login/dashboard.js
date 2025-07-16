@@ -40,7 +40,6 @@ export async function getServerSideProps(context) {
   }
 }
 
-
 // --- SUB-COMPONENTS ---
 
 const Sidebar = () => (
@@ -140,27 +139,55 @@ const Dashboard = ({ userName }) => {
     const [activeFilter, setActiveFilter] = useState('YTD');
     const [filteredData, setFilteredData] = useState([]);
 
-    const fullChartData = [ /* ... your data ... */ ]; // Using placeholder
+    const fullChartData = [
+        { date: '2025-01-15', revenue: 120000, expenses: 80000 },
+        { date: '2025-02-10', revenue: 135000, expenses: 85000 },
+        { date: '2025-03-20', revenue: 180000, expenses: 100000 },
+        { date: '2025-04-18', revenue: 150000, expenses: 95000 },
+        { date: '2025-05-22', revenue: 210000, expenses: 120000 },
+        { date: '2025-06-12', revenue: 160456.80, expenses: 90000 },
+        { date: '2025-07-05', revenue: 220000, expenses: 130000 },
+        { date: '2024-11-15', revenue: 195000, expenses: 110000 },
+        { date: '2024-12-20', revenue: 250000, expenses: 150000 },
+    ];
 
     useEffect(() => {
-        // Filtering logic remains the same
-        const now = new Date('2025-07-16T20:58:48'); // Fixed date
-        let data = fullChartData.filter(d => new Date(d.date).getFullYear() === now.getFullYear()); // Default to YTD
-        // ... add other filter logic from previous example ...
-        setFilteredData(data);
+        const now = new Date('2025-07-16T21:01:14'); // Using fixed date for consistent filtering
+        let data = [];
+        if (activeFilter === 'YTD') {
+            data = fullChartData.filter(d => new Date(d.date).getFullYear() === now.getFullYear());
+        } else if (activeFilter === '30D') {
+            const thirtyDaysAgo = new Date(now);
+            thirtyDaysAgo.setDate(now.getDate() - 30);
+            data = fullChartData.filter(d => new Date(d.date) >= thirtyDaysAgo);
+        } else if (activeFilter === '6M') {
+            const sixMonthsAgo = new Date(now);
+            sixMonthsAgo.setMonth(now.getMonth() - 6);
+            data = fullChartData.filter(d => new Date(d.date) >= sixMonthsAgo);
+        }
+        
+        const formattedData = data.map(item => ({
+            name: new Date(item.date).toLocaleString('default', { month: 'short' }),
+            revenue: item.revenue,
+            expenses: item.expenses
+        }));
+        setFilteredData(formattedData);
     }, [activeFilter]);
     
-    // =================================================================================
-    // LOGOUT HANDLER
-    // =================================================================================
+    const financialSummary = filteredData.reduce((acc, curr) => {
+        acc.revenue += curr.revenue;
+        acc.expenses += curr.expenses;
+        return acc;
+    }, { revenue: 0, expenses: 0 });
+
+    financialSummary.profit = financialSummary.revenue - financialSummary.expenses;
+    
     const handleLogout = async () => {
         try {
           const response = await fetch('/api/logout', { method: 'POST' });
           if (response.ok) {
             router.push('/login');
-          } else {
-            throw new Error('Failed to logout');
-          }
+          } else { throw new Error('Failed to logout'); }
         } catch (error) {
           console.error('Logout failed:', error);
           alert('Could not log out. Please try again.');
@@ -176,12 +203,72 @@ const Dashboard = ({ userName }) => {
             <div className="flex-1 flex flex-col overflow-hidden">
                 <Header onOpenModal={() => setModalOpen(true)} onLogout={handleLogout} />
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
-                    {/* ... The rest of your interactive dashboard UI from the previous step ... */}
-                    {/* Welcome message, Razorpay banner, filters, charts, summary card, etc. */}
-                     <motion.h1 variants={itemVariants} className="text-3xl font-bold text-gray-800 mb-6">
+                    <motion.div variants={containerVariants} initial="hidden" animate="visible">
+                        <motion.h1 variants={itemVariants} className="text-3xl font-bold text-gray-800 mb-6">
                             Welcome Back, {userName}!
-                    </motion.h1>
-                    {/* ... (rest of the UI) ... */}
+                        </motion.h1>
+
+                        <motion.div variants={itemVariants} className="bg-white p-6 rounded-lg shadow-sm flex justify-between items-center mb-6">
+                            <div>
+                                <h2 className="text-xl font-bold text-gray-800">Automate Razorpay Payments into Invoicing</h2>
+                                <p className="text-gray-500 mt-1">Accept payments via the Razorpay Payment Gateway in InstaBill automatically.</p>
+                            </div>
+                            <div className='flex items-center gap-8'>
+                                <button className="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 transition-transform hover:scale-105">Start Now</button>
+                                <img src="https://razorpay.com/assets/razorpay-logo.svg" alt="Razorpay Logo" className="h-8"/>
+                            </div>
+                        </motion.div>
+
+                        <div className="flex items-center gap-2 mb-4">
+                            {['YTD', '6M', '30D'].map(filter => (
+                                <button key={filter} onClick={() => setActiveFilter(filter)}
+                                    className={`py-1.5 px-4 rounded-full text-sm font-semibold transition-colors ${activeFilter === filter ? 'bg-cyan-500 text-white shadow' : 'bg-white text-gray-600 hover:bg-gray-200'}`} >
+                                    {filter === 'YTD' ? 'Year to Date' : `Last ${filter === '6M' ? '6 Months' : '30 Days'}`}
+                                </button>
+                            ))}
+                        </div>
+
+                        <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                                <ResponsiveContainer width="100%" height={350}>
+                                    <BarChart data={filteredData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                        <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                                        <YAxis tickFormatter={(value) => `AED ${value / 1000}k`} tick={{ fontSize: 12 }} />
+                                        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0, 191, 255, 0.1)' }} />
+                                        <Bar dataKey="revenue" fill="url(#colorRevenue)" name="Revenue" radius={[4, 4, 0, 0]} />
+                                        <Bar dataKey="expenses" fill="url(#colorExpenses)" name="Expenses" radius={[4, 4, 0, 0]} />
+                                        <defs>
+                                            <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="5%" stopColor="#4fd1c5" stopOpacity={0.8}/>
+                                                <stop offset="95%" stopColor="#4fd1c5" stopOpacity={0.4}/>
+                                            </linearGradient>
+                                            <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="5%" stopColor="#f6ad55" stopOpacity={0.8}/>
+                                                <stop offset="95%" stopColor="#f6ad55" stopOpacity={0.4}/>
+                                            </linearGradient>
+                                        </defs>
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+
+                            <div className="bg-gradient-to-br from-orange-400 to-red-400 text-white p-6 rounded-xl shadow-lg flex flex-col justify-center">
+                                <h3 className="font-bold text-lg mb-4 opacity-90">Financial Summary ({activeFilter})</h3>
+                                <div className="space-y-3">
+                                    {[
+                                        { label: 'Revenue', value: financialSummary.revenue },
+                                        { label: 'Expenses', value: financialSummary.expenses },
+                                        { label: 'Profit & Loss', value: financialSummary.profit }
+                                    ].map(item => (
+                                        <div key={item.label} className="flex justify-between items-center bg-white/20 p-3 rounded-lg">
+                                            <span className="opacity-90">{item.label}</span>
+                                            <span className="font-bold text-lg">AED {item.value.toLocaleString('en-IN')}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
                 </main>
             </div>
             <CreateNewModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />

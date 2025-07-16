@@ -6,7 +6,8 @@ import {
   inMemoryPersistence,
 } from "firebase/auth";
 import { auth } from "@/utils/firebase";
-import nookies from "nookies";
+// Nookies is no longer needed for setting the login cookie
+// import nookies from "nookies"; 
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -21,23 +22,39 @@ export default function LoginPage() {
 
     try {
       // Set persistence to inMemory so user is logged out on tab close
+      // This part remains unchanged
       await setPersistence(auth, inMemoryPersistence);
 
-      // Sign in user
+      // Sign in user (remains unchanged)
       const userCred = await signInWithEmailAndPassword(auth, email, password);
 
-      // Get ID token and store it in cookies
+      // Get ID token (remains unchanged)
       const token = await userCred.user.getIdToken();
 
-      // Store token as cookie (for SSR use)
-      nookies.set(null, "token", token, {
-        path: "/",
-        maxAge: 7 * 24 * 60 * 60, // 7 days
+      // --- START: MODIFICATION ---
+      // The old way of setting the cookie is replaced with a call to our secure API endpoint.
+      
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
       });
 
-      // Redirect to dashboard
+      // If the server successfully creates the session, we can proceed.
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Session creation failed on server.");
+      }
+
+      // --- END: MODIFICATION ---
+
+      // Redirect to dashboard (remains unchanged)
       router.push("/login/dashboard");
+      
     } catch (err) {
+      // Error handling remains unchanged
       setError("❌ " + err.message.replace("Firebase:", "").trim());
     }
   };
