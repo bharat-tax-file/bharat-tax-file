@@ -16,3 +16,4 @@ module.exports = {
     themes: ["light"],
   },
 }
+// This configuration file sets up Tailwind CSS with DaisyUI for a Next.js project, specifying the content paths and extending the theme as needed. 

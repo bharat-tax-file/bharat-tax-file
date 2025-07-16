@@ -1,3 +1,4 @@
 {
   "extends": "next/core-web-vitals"
 }
+// This ESLint configuration extends the Next.js core web vitals rules, which helps ensure that your Next.js application adheres to best practices for performance and accessibility. It is useful for maintaining code quality in a Next.js project.
