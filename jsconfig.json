@@ -6,3 +6,4 @@
     }
   }
 }
+// This jsconfig.json file is used to configure the JavaScript project in a Next.js application, allowing for module path aliases and better IntelliSense support in editors like Visual Studio Code.
