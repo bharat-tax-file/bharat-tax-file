@@ -10,7 +10,9 @@ import {
   Layers,
   Percent,
   ArrowRight,
+  currencyDollar as CurrencyDollarIcon
 } from "lucide-react";
+import { m } from "framer-motion";
 
 const tools = [
   {
@@ -55,6 +57,12 @@ const tools = [
     icon: Percent,
     description: "Quickly calculate EMIs for your loans and repayments.",
   },
+  {
+    href: "/tools/currency-converter",
+    title: "Currency converter",
+    icon:    ArrowRight,
+    description: "Convert currencies with real-time exchange rates.",
+  }
 ];
 
 export default function ToolsIntro() {
@@ -97,15 +105,8 @@ export default function ToolsIntro() {
             Get accurate results in seconds.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link
-              href="#tools-section"
-              className="inline-flex items-center justify-center px-6 py-3 bg-[#6c63ff] text-white text-lg font-medium rounded-lg hover:bg-[#5548c8] transition-all"
-            >
-              Explore Tools <ArrowRight size={20} className="ml-2" />
-            </Link>
-            <button className="inline-flex items-center justify-center px-6 py-3 bg-white border border-gray-300 text-gray-800 font-medium text-lg rounded-lg shadow-sm hover:bg-gray-50">
-              Learn More
-            </button>
+           
+            
           </div>
         </section>
 
@@ -136,3 +137,4 @@ export default function ToolsIntro() {
     </>
   );
 }
+  

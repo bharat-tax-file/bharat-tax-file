@@ -22,3 +22,48 @@ body{
     background: #e8b333
 }
 
+/* For the glowing text and borders */
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow:
+      0 0 4px #00d9ff,
+      0 0 11px #00d9ff,
+      0 0 19px #00d9ff,
+      0 0 40px #00d9ff,
+      0 0 80px #00d9ff;
+    box-shadow:
+      0 0 2px #00d9ff,
+      inset 0 0 2px #00d9ff;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+    box-shadow: none;
+  }
+}
+.hud-glow {
+  animation: flicker 5s infinite linear;
+}
+
+/* For the background grid */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(0, 246, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 246, 255, 0.1) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+}
+
+/* For the animated scan line */
+@keyframes scan {
+  0% { transform: translateY(-10%); }
+  100% { transform: translateY(110%); }
+}
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to bottom, rgba(0, 246, 255, 0.5), transparent);
+  animation: scan 4s linear infinite;
+  opacity: 0.7;
+}
