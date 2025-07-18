@@ -41,7 +41,7 @@ const urgentInvoices = [
 const activityFeed = [
     { text: "Payment of ₹75,000 received for INV-072.", time: "1h ago" },
     { text: "You sent a reminder for INV-067.", time: "4h ago" },
-    { text: "Client 'Priya Mehta' viewed INV-071.", time: "1d ago" },
+    { text: "Client &apos;Priya Mehta&apos; viewed INV-071.", time: "1d ago" },
     { text: "A new invoice (INV-073) was created.", time: "2d ago" },
 ];
 

@@ -266,6 +266,8 @@ const CurrencyInputRow = memo(({
   );
 });
 
+CurrencyInputRow.displayName = 'CurrencyInputRow';
+
 const RateDisplay = ({ 
   fromCurrency, 
   toCurrency, 
