@@ -64,7 +64,7 @@ const tools = [
     description: "Convert currencies with real-time exchange rates.",
   }
 ];
-
+// This component renders the introduction page for the tools section
 export default function ToolsIntro() {
   return (
     <>
