@@ -977,7 +977,7 @@ export default function CurrencyConverterPage() {
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2 flex items-center">
                   <FiHelpCircle className="text-indigo-600 mr-2" />
-                  Why is this rate different from my bank's rate?
+                  Why is this rate different from my bank&#39;s rate?
                 </h3>
                 <p className="text-gray-600">
                   Financial institutions add a margin (called a spread) to the mid-market rate as their profit. This margin typically ranges from 1-3% but can be higher for less common currency pairs or at physical exchange counters. Our converter shows you the true mid-market rate so you can compare what different providers are offering.
