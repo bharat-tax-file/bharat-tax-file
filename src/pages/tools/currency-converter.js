@@ -602,7 +602,7 @@ function MarketRatesSection() {
     >
       <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
         <FiBarChart2 className="text-indigo-600 mr-2" />
-        {"Today&apos;s Market Rates"}
+        {"Today's Market Rates"}
       </h2>
       {error ? (
         <div className="bg-red-50 text-red-600 p-4 rounded-lg">{error}</div>
@@ -857,33 +857,27 @@ export default function CurrencyConverterPage() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="mb-12"
+              className="mb-4"
             >
               <motion.h1 
                 id="currency-converter-heading"
-                className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-4"
+                className="text-4xl md:text-6xl font-bold text-black-400 tracking-tight mb-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                Currency <span className="text-indigo-600">Converter</span>
+                Currency <span className="text-black-400">Converter</span>
               </motion.h1>
               <motion.p 
-                className="text-xl text-gray-600 max-w-3xl mx-auto"
+                className="text-base md:text-lg font-semibold max-w-xl mx-auto text-center text-red-500 drop-shadow-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
               >
-                Convert 150+ currencies with live exchange rates updated every minute. Compare rates, see historical trends, and get the best value for your money.
+                Convert smarter, save bigger. The only currency converter you need in 2025!
               </motion.p>
             </motion.header>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="max-w-2xl mx-auto"
-            >
+            <motion.div className="max-w-2xl mx-auto" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <CurrencyConverterTool />
               <p className="mt-4 text-sm text-gray-500">
                 Last updated: {formattedDate} at {currentDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
@@ -942,56 +936,8 @@ export default function CurrencyConverterPage() {
           {/* Market Data Section - Realtime */}
           <MarketRatesSection />
 
-          {/* How It Works Section */}
-          <motion.section 
-            className="mb-16"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">How Our Currency Converter Works</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <motion.div 
-                className="bg-white p-6 rounded-xl shadow-sm border border-gray-200"
-                whileHover={{ y: -5 }}
-              >
-                <div className="bg-indigo-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                  <span className="text-indigo-600 font-bold">1</span>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Select Currencies</h3>
-                <p className="text-gray-600">
-                  Choose the currency you want to convert from and to from our list of 150+ global currencies.
-                </p>
-              </motion.div>
-              
-              <motion.div 
-                className="bg-white p-6 rounded-xl shadow-sm border border-gray-200"
-                whileHover={{ y: -5 }}
-              >
-                <div className="bg-indigo-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                  <span className="text-indigo-600 font-bold">2</span>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Enter Amount</h3>
-                <p className="text-gray-600">
-                  Type in the amount you want to convert. Our calculator will show you the equivalent value instantly.
-                </p>
-              </motion.div>
-              
-              <motion.div 
-                className="bg-white p-6 rounded-xl shadow-sm border border-gray-200"
-                whileHover={{ y: -5 }}
-              >
-                <div className="bg-indigo-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                  <span className="text-indigo-600 font-bold">3</span>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Get Accurate Rate</h3>
-                <p className="text-gray-600">
-                  See the real mid-market exchange rate without any hidden fees or markups.
-                </p>
-              </motion.div>
-            </div>
-          </motion.section>
+          
+       
 
           {/* FAQ Section */}
           <motion.section 
@@ -1013,26 +959,40 @@ export default function CurrencyConverterPage() {
             transition={{ delay: 1.0 }}
             aria-labelledby="why-use-heading"
           >
-            <h2 id="why-use-heading" className="text-2xl font-bold text-gray-900 mb-8 text-center">Why Use Our Converter?</h2>
-            <p className="text-lg text-gray-700 mb-8 text-center">
-              Bharat Tax File&apos;s mission is to empower users with transparent, real-time currency data—no hidden fees, no confusing rates. Our converter is trusted by thousands for its accuracy, speed, and ease of use. Whether you&apos;re a traveler, business owner, or just curious, we help you make informed financial decisions.
-            </p>
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="w-full flex flex-col items-center mb-8">
+              <div className="w-full bg-gradient-to-br from-indigo-50 via-pink-50 to-yellow-50 rounded-2xl shadow-md px-6 py-8 flex flex-col items-center">
+                <h2 id="why-use-heading" className="text-2xl font-bold text-gray-900 text-center mb-4 sm:mb-6 w-full">Why Use Our Converter?</h2>
+                <p className="text-lg text-gray-700 text-justify w-full max-w-2xl mx-auto px-4">
+                  Bharat Tax File&apos;s mission is to empower users with transparent, real-time currency data—no hidden fees, no confusing rates. Our converter is trusted by thousands for its accuracy, speed, and ease of use. Whether you&apos;re a traveler, business owner, or just curious, we help you make informed financial decisions.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-6">
               {testimonials.map((t, idx) => (
-                <div key={idx} className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col h-full" itemScope itemType="https://schema.org/Review">
-                  <div className="flex items-center mb-3">
-                    <img src={t.avatar} alt={t.name + ' photo'} className="w-12 h-12 rounded-full mr-3 border-2 border-indigo-200" loading="lazy" />
-                    <div>
-                      <span className="font-semibold text-gray-900" itemProp="author">{t.name}</span>
+                <div
+                  key={idx}
+                  className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col items-center md:items-start h-full text-center md:text-left"
+                  itemScope
+                  itemType="https://schema.org/Review"
+                >
+                  <div className="flex flex-col items-center md:flex-row md:items-center mb-3 w-full">
+                    <img
+                      src={t.avatar}
+                      alt={t.name + ' photo'}
+                      className="w-12 h-12 rounded-full mr-0 md:mr-3 border-2 border-indigo-200"
+                      loading="lazy"
+                    />
+                    <div className="mt-2 md:mt-0">
+                      <span className="font-semibold text-gray-900 block" itemProp="author">{t.name}</span>
                       <span className="block text-xs text-gray-500" itemProp="jobTitle">{t.role}</span>
                     </div>
                   </div>
-                  <div className="flex items-center mb-2" itemProp="reviewRating" itemScope itemType="https://schema.org/Rating">
+                  <div className="flex items-center justify-center md:justify-start mb-2 w-full" itemProp="reviewRating" itemScope itemType="https://schema.org/Rating">
                     <span className="text-yellow-400 text-lg mr-1">{'★'.repeat(t.rating)}</span>
                     <meta itemProp="ratingValue" content={t.rating.toString()} />
                     <meta itemProp="bestRating" content="5" />
                   </div>
-                  <blockquote className="text-gray-700 italic flex-grow" itemProp="reviewBody">
+                  <blockquote className="text-gray-700 italic flex-grow w-full">
                     {t.text}
                   </blockquote>
                 </div>
