@@ -1055,7 +1055,7 @@ const testimonials = [
 // FAQ Accordion Component for SEO and UX
 const FAQS = [
   {
-    question: 'Why is this rate different from my bank\'s rate?',
+    question: 'Why is this rate different from my bank&apos;s rate?',
     answer: 'Financial institutions add a margin (called a spread) to the mid-market rate as their profit. This margin typically ranges from 1-3% but can be higher for less common currency pairs or at physical exchange counters. Our converter shows you the true mid-market rate so you can compare what different providers are offering.'
   },
   {
