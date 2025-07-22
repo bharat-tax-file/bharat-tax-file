@@ -24,7 +24,18 @@ const Logo = () => (
 const BetterNavbar = ({ userName, userEmail, onLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const menuRef = useRef(null);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640); // Tailwind 'sm' breakpoint
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -39,6 +50,19 @@ const BetterNavbar = ({ userName, userEmail, onLogout }) => {
     };
   }, []);
 
+  if (isMobile) {
+    return (
+      <>
+        <MobileNavbar
+          userName={userName}
+          userEmail={userEmail}
+          onLogout={onLogout}
+          onClose={() => setIsMobileMenuOpen(false)}
+        />
+      </>
+    );
+  }
+  // ...existing code...
   return (
     <header className="bg-white/80 backdrop-blur-lg shadow-sm border-b border-slate-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -139,16 +163,6 @@ const BetterNavbar = ({ userName, userEmail, onLogout }) => {
           </div>
         </div>
       </div>
-
-      {/* Mobile Drawer/Menu */}
-      {isMobileMenuOpen && (
-        <MobileNavbar
-          userName={userName}
-          userEmail={userEmail}
-          onLogout={onLogout}
-          onClose={() => setIsMobileMenuOpen(false)}
-        />
-      )}
     </header>
   );
   
