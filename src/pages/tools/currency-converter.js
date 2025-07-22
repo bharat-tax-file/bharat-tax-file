@@ -259,7 +259,7 @@ const CurrencyInputRow = memo(({
               />
             </div>
           )}
-          {/* Removed animated pink dot for cleaner UI */}
+          {/* Removed animated pink dot for cleaner UI oihovo*/}
         </div>
       </div>
     </motion.div>
