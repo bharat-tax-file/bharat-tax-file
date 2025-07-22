@@ -1055,51 +1055,52 @@ const testimonials = [
 // FAQ Accordion Component for SEO and UX
 const FAQS = [
   {
-    question: 'Why is this rate different from my bank&apos;s rate?',
+    question: "Why is this rate different from my bank's rate?",
     answer:
-      'Financial institutions add a margin (called a spread) to the mid-market rate as their profit. This margin typically ranges from 1&ndash;3% but can be higher for less common currency pairs or at physical exchange counters. Our converter shows you the true mid-market rate so you can compare what different providers are offering.',
+      "Financial institutions add a margin (called a spread) to the mid-market rate as their profit. This margin typically ranges from 1–3% but can be higher for less common currency pairs or at physical exchange counters. Our converter shows you the true mid-market rate so you can compare what different providers are offering.",
   },
   {
-    question: 'How often are your exchange rates updated?',
+    question: "How often are your exchange rates updated?",
     answer:
-      'Our rates refresh every minute to reflect the latest market conditions. Currency markets operate 24 hours a day during weekdays, with rates constantly fluctuating based on global economic factors, political events, and market demand.',
+      "Our rates refresh every minute to reflect the latest market conditions. Currency markets operate 24 hours a day during weekdays, with rates constantly fluctuating based on global economic factors, political events, and market demand.",
   },
   {
-    question: 'Is there a fee for using this currency converter?',
+    question: "Is there a fee for using this currency converter?",
     answer:
-      'No, our currency converter is completely free to use. We show you the real mid-market exchange rate without any markup or hidden fees. This helps you understand exactly how much your money is worth before you exchange it through a bank or money transfer service.',
+      "No, our currency converter is completely free to use. We show you the real mid-market exchange rate without any markup or hidden fees. This helps you understand exactly how much your money is worth before you exchange it through a bank or money transfer service.",
   },
   {
-    question: 'How do I use the currency converter?',
+    question: "How do I use the currency converter?",
     answer:
-      'Simply select your currencies, enter the amount, and see the converted value instantly. You can also view popular conversions and compare rates for major currencies.',
+      "Simply select your currencies, enter the amount, and see the converted value instantly. You can also view popular conversions and compare rates for major currencies.",
   },
   {
-    question: 'Which currencies are supported?',
+    question: "Which currencies are supported?",
     answer:
-      'We support over 150 global currencies including USD, INR, EUR, GBP, JPY, AUD, CAD, SGD, CNY, AED, CHF, NZD, and more.',
+      "We support over 150 global currencies including USD, INR, EUR, GBP, JPY, AUD, CAD, SGD, CNY, AED, CHF, NZD, and more.",
   },
   {
-    question: 'Are your exchange rates live and accurate?',
+    question: "Are your exchange rates live and accurate?",
     answer:
-      'Yes, our rates are updated every minute using trusted financial data sources to ensure accuracy and transparency.',
+      "Yes, our rates are updated every minute using trusted financial data sources to ensure accuracy and transparency.",
   },
   {
-    question: 'Can I use this converter for business or travel?',
+    question: "Can I use this converter for business or travel?",
     answer:
-      'Absolutely! Our converter is ideal for travelers, businesses, and anyone needing real-time currency conversions for international payments, remittances, or budgeting.',
+      "Absolutely! Our converter is ideal for travelers, businesses, and anyone needing real-time currency conversions for international payments, remittances, or budgeting.",
   },
   {
-    question: 'Do you offer historical exchange rates?',
+    question: "Do you offer historical exchange rates?",
     answer:
-      'Yes, you can view historical rates and trends for major currency pairs to help you make informed decisions.',
+      "Yes, you can view historical rates and trends for major currency pairs to help you make informed decisions.",
   },
   {
-    question: 'Is my data safe when using this tool?',
+    question: "Is my data safe when using this tool?",
     answer:
-      'Yes, we do not store any personal or financial data. All conversions are processed securely and anonymously.',
+      "Yes, we do not store any personal or financial data. All conversions are processed securely and anonymously.",
   }
 ]
+
 
 
 function FAQAccordion() {
