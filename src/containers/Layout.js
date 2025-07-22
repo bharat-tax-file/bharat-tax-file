@@ -2,11 +2,14 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import Login from "../pages/login";
 
 
 // ✅ Layout Component
 export default function Layout({ children }) {
+  const router = useRouter();
+  const isDashboard = router.pathname.startsWith("/login/dashboard");
   return (
     <>
       <Head>
@@ -34,7 +37,8 @@ export default function Layout({ children }) {
       </Head>
 
       <div className="flex flex-col min-h-screen">
-        <Navbar />
+        {/* Hide main navbar on dashboard pages */}
+        {!isDashboard && <Navbar />}
         <main className="flex-grow">{children}</main>
         <Footer />
       </div>
