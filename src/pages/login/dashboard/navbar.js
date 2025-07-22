@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  FiSearch, 
-  FiBell, 
-  FiPlus, 
-  FiUser, 
-  FiSettings, 
+import MobileNavbar from './MobileNavbar';
+import {
+  FiSearch,
+  FiBell,
+  FiPlus,
+  FiUser,
+  FiSettings,
   FiLogOut,
-  FiChevronDown
+  FiChevronDown,
+  FiMenu
 } from 'react-icons/fi';
 
 // A simple Logo component (can be replaced with an SVG or <img> tag)
@@ -21,6 +23,7 @@ const Logo = () => (
 
 const BetterNavbar = ({ userName, userEmail, onLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
   // Close dropdown when clicking outside
@@ -41,7 +44,7 @@ const BetterNavbar = ({ userName, userEmail, onLogout }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Left Section: Logo & Page Title */}
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-4 sm:gap-8">
             <Logo />
             <div className="hidden md:block">
               <h1 className="text-lg font-medium text-slate-700">Dashboard</h1>
@@ -49,8 +52,19 @@ const BetterNavbar = ({ userName, userEmail, onLogout }) => {
             </div>
           </div>
 
-          {/* Center Section: Search Bar (optional, good for dashboards) */}
-          <div className="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-center">
+          {/* Mobile menu button */}
+          <div className="flex items-center sm:hidden">
+            <button
+              className="p-2 rounded-full text-slate-500 hover:bg-slate-200 hover:text-slate-800 transition-colors"
+              aria-label="Open mobile menu"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <FiMenu className="h-6 w-6" />
+            </button>
+          </div>
+
+          {/* Center Section: Search Bar (hidden on mobile) */}
+          <div className="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-center hidden sm:flex">
             <div className="max-w-md w-full">
               <label htmlFor="search" className="sr-only">Search</label>
               <div className="relative text-slate-400 focus-within:text-slate-600">
@@ -68,9 +82,9 @@ const BetterNavbar = ({ userName, userEmail, onLogout }) => {
             </div>
           </div>
 
-          {/* Right Section: Actions & User Menu */}
-          <div className="flex items-center gap-4">
-            <button className="hidden sm:flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg text-sm transition-all duration-200 shadow-sm">
+          {/* Right Section: Actions & User Menu (hidden on mobile) */}
+          <div className="hidden sm:flex items-center gap-4">
+            <button className="items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg text-sm transition-all duration-200 shadow-sm">
               <FiPlus className="text-md" />
               New Invoice
             </button>
@@ -125,8 +139,19 @@ const BetterNavbar = ({ userName, userEmail, onLogout }) => {
           </div>
         </div>
       </div>
+
+      {/* Mobile Drawer/Menu */}
+      {isMobileMenuOpen && (
+        <MobileNavbar
+          userName={userName}
+          userEmail={userEmail}
+          onLogout={onLogout}
+          onClose={() => setIsMobileMenuOpen(false)}
+        />
+      )}
     </header>
   );
+  
 };
 
 export default BetterNavbar;

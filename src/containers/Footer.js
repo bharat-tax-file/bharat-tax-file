@@ -18,7 +18,7 @@ function Footer() {
 
             <div className="mt-4 flex gap-4 text-xl text-gray-400">
               <a
-                href="https://www.instagram.com/bharattaxfile?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                href="https://www.instagram.com/bharattaxfiling/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-blue-400 transition"
@@ -26,15 +26,7 @@ function Footer() {
               >
                 <FaInstagram />
               </a>
-              <a
-                href="https://www.facebook.com/profile.php?id=61575033451690"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-blue-400 transition"
-                aria-label="Facebook"
-              >
-                <FaFacebookF />
-              </a>
+            
             </div>
           </div>
 
