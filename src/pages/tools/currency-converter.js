@@ -141,7 +141,6 @@ function useCurrencyConverter({ from = 'USD', to = 'INR', amount = '1000' }) {
   };
 }
 
-
 // ====================================================================
 // UI COMPONENTS
 // ====================================================================
@@ -259,7 +258,6 @@ const CurrencyInputRow = memo(({
               />
             </div>
           )}
-          {/* Removed animated pink dot for cleaner UI oihovo*/}
         </div>
       </div>
     </motion.div>
@@ -474,8 +472,6 @@ const CurrencyConverterTool = () => {
 
   return (
     <div className="relative bg-gradient-to-br from-pink-50 via-yellow-50 to-blue-50 p-8 rounded-3xl shadow-2xl border-4 border-pink-200">
-      {/* Confetti effect */}
-    
       <div className="space-y-8">
         <CurrencyInputRow
           label="Amount to convert"
@@ -606,7 +602,7 @@ function MarketRatesSection() {
     >
       <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
         <FiBarChart2 className="text-indigo-600 mr-2" />
-        {"Today's Market Rates"}
+        {"Today&apos;s Market Rates"}
       </h2>
       {error ? (
         <div className="bg-red-50 text-red-600 p-4 rounded-lg">{error}</div>
@@ -665,7 +661,7 @@ export default function CurrencyConverterPage() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Why is this rate different from my bank's rate?",
+        "name": "Why is this rate different from my bank&apos;s rate?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "We display the live mid-market rate, which is the benchmark rate banks use when trading currencies among themselves. Financial institutions typically add a margin (called a spread) of 1-3% to this rate as their profit. This is why their offered rate is less favorable than what you see here. Use our converter to understand the true value of your money before making transfers."
@@ -775,6 +771,38 @@ export default function CurrencyConverterPage() {
     }
   };
 
+  // Testimonials data for social proof
+  const testimonials = [
+    {
+      name: 'Priya S.',
+      role: 'Frequent Traveler',
+      avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
+      rating: 5,
+      text: 'The most reliable and transparent currency converter I&apos;ve used. No hidden fees and always up-to-date rates!'
+    },
+    {
+      name: 'Rahul M.',
+      role: 'Small Business Owner',
+      avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+      rating: 5,
+      text: 'I use Bharat Tax File for all my international transactions. The live rates and easy interface save me time and money.'
+    },
+    {
+      name: 'Aarti K.',
+      role: 'Student',
+      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+      rating: 4,
+      text: 'Super easy to use and very accurate. Helped me plan my study abroad budget with confidence.'
+    },
+    {
+      name: 'Vikram P.',
+      role: 'Remittance User',
+      avatar: 'https://randomuser.me/api/portraits/men/76.jpg',
+      rating: 5,
+      text: 'I recommend this converter to all my friends and family. It&apos;s fast, free, and trustworthy.'
+    }
+  ];
+
   return (
     <>
       <Head>
@@ -812,7 +840,6 @@ export default function CurrencyConverterPage() {
         {/* Viewport and Theme */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="theme-color" content="#6366f1" />
-        {/* HTML lang attribute for SEO (set via _document.js in Next.js, but reminder for best practice) */}
       </Head>
 
       <main className="bg-gradient-to-b from-gray-50 to-white min-h-screen" id="main-content">
@@ -988,7 +1015,7 @@ export default function CurrencyConverterPage() {
           >
             <h2 id="why-use-heading" className="text-2xl font-bold text-gray-900 mb-8 text-center">Why Use Our Converter?</h2>
             <p className="text-lg text-gray-700 mb-8 text-center">
-              Bharat Tax File's mission is to empower users with transparent, real-time currency data—no hidden fees, no confusing rates. Our converter is trusted by thousands for its accuracy, speed, and ease of use. Whether you're a traveler, business owner, or just curious, we help you make informed financial decisions.
+              Bharat Tax File&apos;s mission is to empower users with transparent, real-time currency data—no hidden fees, no confusing rates. Our converter is trusted by thousands for its accuracy, speed, and ease of use. Whether you&apos;re a traveler, business owner, or just curious, we help you make informed financial decisions.
             </p>
             <div className="grid gap-6 md:grid-cols-2">
               {testimonials.map((t, idx) => (
@@ -1006,56 +1033,22 @@ export default function CurrencyConverterPage() {
                     <meta itemProp="bestRating" content="5" />
                   </div>
                   <blockquote className="text-gray-700 italic flex-grow" itemProp="reviewBody">
-                    “{t.text}”
+                    {t.text}
                   </blockquote>
                 </div>
               ))}
             </div>
           </motion.section>
         </div>
-
-        {/* Footer removed */}
       </main>
     </>
   );
 }
 
-// Testimonials data for social proof
-const testimonials = [
-  {
-    name: 'Priya S.',
-    role: 'Frequent Traveler',
-    avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
-    rating: 5,
-    text: 'The most reliable and transparent currency converter I have used. No hidden fees and always up-to-date rates!'
-  },
-  {
-    name: 'Rahul M.',
-    role: 'Small Business Owner',
-    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-    rating: 5,
-    text: 'I use Bharat Tax File for all my international transactions. The live rates and easy interface save me time and money.'
-  },
-  {
-    name: 'Aarti K.',
-    role: 'Student',
-    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-    rating: 4,
-    text: 'Super easy to use and very accurate. Helped me plan my study abroad budget with confidence.'
-  },
-  {
-    name: 'Vikram P.',
-    role: 'Remittance User',
-    avatar: 'https://randomuser.me/api/portraits/men/76.jpg',
-    rating: 5,
-    text: 'I recommend this converter to all my friends and family. It’s fast, free, and trustworthy.'
-  }
-];
-
-// FAQ Accordion Component for SEO and UX
+// FAQ Accordion Component
 const FAQS = [
   {
-    question: "Why is this rate different from my bank's rate?",
+    question: "Why is this rate different from my bank&apos;s rate?",
     answer:
       "Financial institutions add a margin (called a spread) to the mid-market rate as their profit. This margin typically ranges from 1–3% but can be higher for less common currency pairs or at physical exchange counters. Our converter shows you the true mid-market rate so you can compare what different providers are offering.",
   },
@@ -1099,9 +1092,7 @@ const FAQS = [
     answer:
       "Yes, we do not store any personal or financial data. All conversions are processed securely and anonymously.",
   }
-]
-
-
+];
 
 function FAQAccordion() {
   const [openIndex, setOpenIndex] = React.useState(null);
