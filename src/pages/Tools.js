@@ -21,6 +21,12 @@ const tools = [
     icon: FileText,
     description: "Simplify your GST return filing process with our easy-to-use calculator.",
   },
+     {
+    href: "/tools/currency-converter",
+    title: "Currency converter",
+    icon:    ArrowRight,
+    description: "Convert currencies with real-time exchange rates.",
+  },
   {
     href: "/tools/income-tax-calculator",
     title: "Income Tax Calculator",
@@ -57,12 +63,7 @@ const tools = [
     icon: Percent,
     description: "Quickly calculate EMIs for your loans and repayments.",
   },
-  {
-    href: "/tools/currency-converter",
-    title: "Currency converter",
-    icon:    ArrowRight,
-    description: "Convert currencies with real-time exchange rates.",
-  }
+
 ];
 // This component renders the introduction page for the tools section
 export default function ToolsIntro() {
