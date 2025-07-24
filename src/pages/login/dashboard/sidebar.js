@@ -32,6 +32,9 @@ const navLinks = [
   { id: 'invoices', name: 'Invoices', icon: FiFileText, path: '/login/dashboard/invoices' },
   { id: 'clients', name: 'Clients', icon: FiUsers, path: '/login/dashboard/clients' },
   { id: 'payments', name: 'Payments', icon: FiDollarSign, path: '/login/dashboard/payments' },
+  { id: 'service', name: 'Service', icon: FiFileText, path: '/login/dashboard/service' },
+  { id: 'party', name: 'Party', icon: FiUsers, path: '/login/dashboard/party' },
+  { id: 'report', name: 'Report', icon: FiFileText, path: '/login/dashboard/report' },
 ];
 
 
