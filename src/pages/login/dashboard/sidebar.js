@@ -1,5 +1,3 @@
-
-import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
@@ -8,25 +6,24 @@ import {
   FiUsers,
   FiDollarSign,
   FiSettings,
-  FiChevronsLeft,
-  FiChevronsRight
+  FiChevronLeft,
+  FiChevronRight,
+  FiX
 } from 'react-icons/fi';
 
-// A simple Logo component to be used in the sidebar
 const Logo = ({ isCollapsed }) => (
-  <div className="flex items-center gap-3">
-    <svg className="h-8 w-8 flex-shrink-0 text-indigo-600" viewBox="0 0 24 24" fill="currentColor">
+  <div className="flex items-center justify-center gap-3 h-16">
+    <svg className="h-8 w-8 text-indigo-600" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5-10-5-10 5z" />
     </svg>
-    <span 
-      className={`text-xl font-bold text-slate-800 tracking-wider transition-opacity duration-200 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}
-    >
-      Invoicy
-    </span>
+    {!isCollapsed && (
+      <span className="text-xl font-bold text-slate-800 tracking-wider">Invoicy</span>
+    )}
   </div>
 );
 
-// Define navigation links as an array of objects for easy management
+
+
 const navLinks = [
   { id: 'dashboard', name: 'Dashboard', icon: FiHome, path: '/login/dashboard' },
   { id: 'invoices', name: 'Invoices', icon: FiFileText, path: '/login/dashboard/invoices' },
@@ -37,54 +34,61 @@ const navLinks = [
   { id: 'report', name: 'Report', icon: FiFileText, path: '/login/dashboard/report' },
 ];
 
-
-const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+const Sidebar = ({ isCollapsed, isMobile, toggleSidebar, closeSidebar }) => {
   const router = useRouter();
   const currentPath = router.pathname;
 
   return (
-    <aside
-      className={`bg-white h-screen flex flex-col border-r border-slate-200 transition-all duration-300 ease-in-out hidden lg:flex ${isCollapsed ? 'w-20' : 'w-64'}`}
-      aria-label="Sidebar navigation"
-    >
-      {/* Top section: Logo and Collapse Toggle */}
-      <div className="flex items-center justify-between p-4 border-b border-slate-200">
-        <div className={`overflow-hidden ${!isCollapsed && 'w-full'}`}> 
-          <Logo isCollapsed={isCollapsed} />
+    <aside className="h-full flex flex-col">
+      {/* Header with close button (mobile only) */}
+      <div className="flex items-center justify-between p-4 border-b border-gray-200">
+        <Logo isCollapsed={isCollapsed} />
+        <div className="flex items-center gap-2">
+          {!isMobile && (
+            <button
+              onClick={toggleSidebar}
+              className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition"
+              aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            >
+              {isCollapsed ? <FiChevronRight size={20} /> : <FiChevronLeft size={20} />}
+            </button>
+          )}
+          {isMobile && (
+            <button
+              onClick={closeSidebar}
+              className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition"
+              aria-label="Close sidebar"
+            >
+              <FiX size={20} />
+            </button>
+          )}
         </div>
-        <button
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-2 rounded-full hover:bg-slate-100 text-slate-500"
-          aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        >
-          {isCollapsed ? <FiChevronsRight size={20} /> : <FiChevronsLeft size={20} />}
-        </button>
       </div>
 
-      {/* Navigation Links */}
-      <nav className="flex-1 px-3 py-4" aria-label="Main">
-        <ul className="space-y-2">
+      {/* Nav Links */}
+      <nav className="flex-1 overflow-y-auto py-4">
+        <ul className="space-y-1 px-2">
+          
           {navLinks.map((link) => {
             const isActive = currentPath === link.path;
             return (
-              <li key={link.id} className="relative">
+              <li key={link.id} className="relative group">
                 <Link href={link.path} legacyBehavior>
                   <a
-                    className={`flex items-center p-3 rounded-lg transition-colors group focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+                    onClick={isMobile ? closeSidebar : undefined}
+                    className={`flex items-center p-3 rounded-lg transition-all duration-200 ${
                       isActive
-                        ? 'bg-indigo-50 text-indigo-600 font-semibold'
-                        : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'
-                    }`}
-                    aria-current={isActive ? 'page' : undefined}
+                        ? 'bg-indigo-100 text-indigo-700 font-semibold'
+                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    } ${isCollapsed && !isMobile ? 'justify-center' : ''}`}
                   >
-                    <link.icon size={22} className="flex-shrink-0" />
-                    <span className={`ml-4 transition-opacity duration-200 ${isCollapsed ? 'opacity-0 hidden' : 'opacity-100 block'}`}>
-                      {link.name}
-                    </span>
-                    {/* Tooltip for collapsed state */}
-                    {isCollapsed && (
-                      <span className="absolute left-full ml-4 w-auto p-2 min-w-max rounded-md shadow-md text-white bg-gray-800 text-xs font-bold transition-all duration-100 scale-0 group-hover:scale-100 origin-left">
+                    <link.icon
+                      size={20}
+                      className={`flex-shrink-0 ${isActive ? 'text-indigo-600' : 'text-gray-500'}`}
+                    />
+                    {(!isCollapsed || isMobile) && <span className="ml-3">{link.name}</span>}
+                    {isCollapsed && !isMobile && (
+                      <span className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-3 py-1.5 bg-gray-800 text-white text-sm rounded shadow opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-10 pointer-events-none">
                         {link.name}
                       </span>
                     )}
@@ -96,23 +100,26 @@ const Sidebar = () => {
         </ul>
       </nav>
 
-      {/* Bottom section: Settings */}
-      <div className="px-3 py-4 border-t border-slate-200">
+      {/* Settings Link */}
+      <div className="px-2 py-4 border-t border-gray-200">
         <Link href="/login/dashboard/settings" legacyBehavior>
           <a
-            className={`flex items-center p-3 rounded-lg transition-colors group focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+            onClick={isMobile ? closeSidebar : undefined}
+            className={`flex items-center p-3 rounded-lg transition-all ${
               currentPath === '/login/dashboard/settings'
-                ? 'bg-indigo-50 text-indigo-600 font-semibold'
-                : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'
-            }`}
-            aria-current={currentPath === '/login/dashboard/settings' ? 'page' : undefined}
+                ? 'bg-indigo-100 text-indigo-700 font-semibold'
+                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+            } ${isCollapsed && !isMobile ? 'justify-center' : ''}`}
           >
-            <FiSettings size={22} />
-            <span className={`ml-4 transition-opacity duration-200 ${isCollapsed ? 'opacity-0 hidden' : 'opacity-100 block'}`}>
-              Settings
-            </span>
-            {isCollapsed && (
-              <span className="absolute left-full ml-4 w-auto p-2 min-w-max rounded-md shadow-md text-white bg-gray-800 text-xs font-bold transition-all duration-100 scale-0 group-hover:scale-100 origin-left">
+            <FiSettings
+              size={20}
+              className={`flex-shrink-0 ${
+                currentPath === '/login/dashboard/settings' ? 'text-indigo-600' : 'text-gray-500'
+              }`}
+            />
+            {(!isCollapsed || isMobile) && <span className="ml-3">Settings</span>}
+            {isCollapsed && !isMobile && (
+              <span className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-3 py-1.5 bg-gray-800 text-white text-sm rounded shadow opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-10 pointer-events-none">
                 Settings
               </span>
             )}
@@ -123,4 +130,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;  
+export default Sidebar;

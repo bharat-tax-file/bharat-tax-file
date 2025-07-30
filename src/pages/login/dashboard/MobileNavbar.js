@@ -11,7 +11,8 @@ import {
   FiMoon,
   FiPlus,
   FiBell,
-  FiChevronRight
+  FiChevronRight,
+  FiHome
 } from 'react-icons/fi';
 
 // --- Reusable Sub-components for a Cleaner Structure ---
@@ -38,11 +39,9 @@ const DrawerLink = ({ icon: Icon, text, href = "#", onClick }) => (
 
 // --- Main Component ---
 
-const CoolMobileNavbar = ({ userName, userEmail, onLogout }) => {
+const MobileNavbar = ({ userName, userEmail, onLogout }) => {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-  // ...existing code...
 
-  // Prevent background scroll when drawer is open
   React.useEffect(() => {
     if (isDrawerOpen) {
       document.body.style.overflow = 'hidden';
@@ -92,7 +91,7 @@ const CoolMobileNavbar = ({ userName, userEmail, onLogout }) => {
         >
           {/* Aurora Effect */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/30 dark:bg-indigo-500/20 rounded-full blur-3xl opacity-50"></div>
-          
+
           <div className="relative z-10 flex flex-col h-full p-6">
             {/* Drawer Header */}
             <div className="flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800">
@@ -106,45 +105,49 @@ const CoolMobileNavbar = ({ userName, userEmail, onLogout }) => {
               </button>
             </div>
 
+            {/* User Profile (Moved Here) */}
+            <div className="mt-6 mb-4">
+              <div className="p-4 rounded-lg bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <img
+                      className="h-10 w-10 rounded-full object-cover"
+                      src={`https://api.dicebear.com/8.x/initials/svg?seed=${userName}`}
+                      alt="User avatar"
+                    />
+                    <div>
+                      <p className="font-semibold text-slate-800 dark:text-slate-100">{userName}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{userEmail}</p>
+                    </div>
+                  </div>
+                  <a href="#profile" className="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                    <FiChevronRight size={20} />
+                  </a>
+                </div>
+              </div>
+            </div>
+
             {/* Main Navigation */}
-            <nav className="flex-1 mt-8 space-y-2">
-              <DrawerLink icon={FiFileText} text="Invoices" />
-              <DrawerLink icon={FiUsers} text="Clients" />
-              <DrawerLink icon={FiDollarSign} text="Payments" />
+            <nav className="flex-1 space-y-2">
+              <DrawerLink icon={FiHome} text="Dashboard" href="/login/dashboard/" />
+              <DrawerLink icon={FiFileText} text="Invoices" href="/login/dashboard/invoices" />
+              <DrawerLink icon={FiUsers} text="Clients" href="/login/dashboard/clients" />
+              <DrawerLink icon={FiFileText} text="Service" href="/login/dashboard/service" />
+              <DrawerLink icon={FiUsers} text="Party" href="/login/dashboard/party" />
+              <DrawerLink icon={FiFileText} text="Report" href="/login/dashboard/report" />
             </nav>
 
-            {/* User Profile & Actions */}
-            <div className="mt-auto">
-                <div className="p-4 rounded-lg bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                            <img
-                                className="h-10 w-10 rounded-full object-cover"
-                                src={`https://api.dicebear.com/8.x/initials/svg?seed=${userName}`}
-                                alt="User avatar"
-                            />
-                            <div>
-                                <p className="font-semibold text-slate-800 dark:text-slate-100">{userName}</p>
-                                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{userEmail}</p>
-                            </div>
-                        </div>
-                        <a href="#profile" className="text-slate-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-400">
-                            <FiChevronRight size={20} />
-                        </a>
-                    </div>
-                </div>
-
-                <div className="mt-4 space-y-1">
-                    <DrawerLink icon={FiSettings} text="Settings" />
-                    <a
-                        href="#"
-                        onClick={onLogout}
-                        className="flex items-center gap-4 text-lg text-red-500 hover:text-red-600 dark:hover:text-red-400 p-3 rounded-lg transition-colors duration-200"
-                    >
-                        <FiLogOut className="h-6 w-6" />
-                        <span>Logout</span>
-                    </a>
-                </div>
+            {/* Settings & Logout */}
+            <div className="mt-4 space-y-1">
+              <DrawerLink icon={FiSettings} text="Settings" />
+              <a
+                href="#"
+                onClick={onLogout}
+                className="flex items-center gap-4 text-lg text-red-500 hover:text-red-600 dark:hover:text-red-400 p-3 rounded-lg transition-colors duration-200"
+              >
+                <FiLogOut className="h-6 w-6" />
+                <span>Logout</span>
+              </a>
             </div>
           </div>
         </div>
@@ -153,20 +156,4 @@ const CoolMobileNavbar = ({ userName, userEmail, onLogout }) => {
   );
 };
 
-// You would use this component in your main App file
-// function App() {
-//   return (
-//     <div>
-//       <CoolMobileNavbar 
-//         userName="Alex"
-//         userEmail="alex.doe@example.com"
-//         onLogout={() => alert('Logged out!')}
-//       />
-//       <main className="p-4">
-//         {/* Your page content here */}
-//       </main>
-//     </div>
-//   )
-// }
-
-export default CoolMobileNavbar;
+export default MobileNavbar;
