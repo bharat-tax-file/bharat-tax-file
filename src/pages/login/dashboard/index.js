@@ -150,8 +150,9 @@ export default function Dashboard({ userName }) {
               Welcome back, {userName}! 👋
             </motion.h1>
             <motion.p variants={itemVariants} className="text-slate-500 mb-8">
-              Here's your financial overview for the month.
-            </motion.p>
+  Here&rsquo;s your financial overview for the month.
+</motion.p>
+
 
             {/* Main Dashboard Grid */}
             <motion.div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6" variants={containerVariants}>
