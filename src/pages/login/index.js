@@ -88,12 +88,11 @@ export default function LoginPage() {
             />
           </div>
 
-          <button
-            type="submit"
-            className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold transition duration-300 shadow-md"
-          >
-            Sign In
-          </button>
+<Loader loading={loading} type="submit">
+  Sign In
+</Loader>
+
+
         </form>
 
         <div className="text-sm text-gray-500 mt-6">
