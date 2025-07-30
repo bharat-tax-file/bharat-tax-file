@@ -4,6 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Login from "../pages/login";
+import Dashboard from "@/pages/login/dashboard";
 
 
 // ✅ Layout Component
@@ -12,7 +13,22 @@ export default function Layout({ children }) {
   const isDashboard = router.pathname.startsWith("/login/dashboard");
   return (
     <>
-      <Head>
+    {
+      isDashboard ? (
+        <>
+          {/* <Head>
+            <title>Bharat Tax File - Dashboard</title>
+          </Head>
+          <Navbar />
+          <div className="container mx-auto p-4">
+            {children}
+          </div>
+          <Footer /> */}
+          <Dashboard/>
+        </>
+      ) : (
+        <>
+          <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -56,6 +72,10 @@ export default function Layout({ children }) {
           <li><Link href="/privacy-policy">Privacy Policy</Link></li>
         </ul>
       </div>
+        </>
+      )
+
+    }
     </>
   );
 }

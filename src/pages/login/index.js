@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Loader from "@/components/loader";
+
 import {
   signInWithEmailAndPassword,
   setPersistence,
   inMemoryPersistence,
 } from "firebase/auth";
 import { auth } from "@/utils/firebase";
-// Nookies is no longer needed for setting the login cookie
-// import nookies from "nookies"; 
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -15,25 +15,19 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // loader state
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true); // start loader
 
     try {
-      // Set persistence to inMemory so user is logged out on tab close
-      // This part remains unchanged
       await setPersistence(auth, inMemoryPersistence);
 
-      // Sign in user (remains unchanged)
       const userCred = await signInWithEmailAndPassword(auth, email, password);
-
-      // Get ID token (remains unchanged)
       const token = await userCred.user.getIdToken();
 
-      // --- START: MODIFICATION ---
-      // The old way of setting the cookie is replaced with a call to our secure API endpoint.
-      
       const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
@@ -42,19 +36,16 @@ export default function LoginPage() {
         body: JSON.stringify({ token }),
       });
 
-      // If the server successfully creates the session, we can proceed.
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || "Session creation failed on server.");
       }
 
-      // --- END: MODIFICATION ---
-
-      // Redirect to dashboard (remains unchanged)
+      // loader will auto clear on route change
       router.push("/login/dashboard");
-      
+
     } catch (err) {
-      // Error handling remains unchanged
+      setLoading(false); // stop loader on error
       setError("❌ " + err.message.replace("Firebase:", "").trim());
     }
   };
@@ -70,6 +61,7 @@ export default function LoginPage() {
         </p>
 
         {error && <p className="text-red-600 font-medium mb-4">{error}</p>}
+        {loading && <Loader />} {/* Show loader during login */}
 
         <form onSubmit={handleLogin} className="flex flex-col gap-4 text-left">
           <div>
@@ -96,12 +88,11 @@ export default function LoginPage() {
             />
           </div>
 
-          <button
-            type="submit"
-            className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold transition duration-300 shadow-md"
-          >
-            Sign In
-          </button>
+<Loader loading={loading} type="submit">
+  Sign In
+</Loader>
+
+
         </form>
 
         <div className="text-sm text-gray-500 mt-6">
