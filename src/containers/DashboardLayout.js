@@ -50,6 +50,8 @@ const DashboardLayout = ({ children, userName, userEmail, onLogout }) => {
           />
         </div>
       )}
+      
+
 
       {/* Mobile Drawer Navbar */}
       {isMobile && (

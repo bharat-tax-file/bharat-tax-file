@@ -42,7 +42,7 @@ export default function LoginPage() {
       }
 
       // loader will auto clear on route change
-      router.push("/login/dashboard");
+      router.push("/dashboard/index");
 
     } catch (err) {
       setLoading(false); // stop loader on error
