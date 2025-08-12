@@ -15,10 +15,10 @@ export default function Layout({ children }) {
     <>
       {
         isDashboard ? (
-          <>
-            <Dashboard />
-          </>
-        ) : (
+  <>
+    {children}
+  </>
+) : (
           <>
             <Head>
               <meta charSet="UTF-8" />

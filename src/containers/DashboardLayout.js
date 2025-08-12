@@ -35,16 +35,15 @@ const DashboardLayout = ({ children, userName, userEmail, onLogout }) => {
   };
 
   return (
-    <div className="h-screen flex bg-slate-50 overflow-hidden">
+    <div className="h-screen flex bg-slate-100 overflow-hidden">
       {/* Desktop Sidebar */}
       {!isMobile && (
         <div
-          className={`fixed top-0 left-0 h-screen bg-white border-r z-40 transition-all duration-300
+          className={`fixed left-0 top-0 h-full bg-white
             ${isSidebarCollapsed ? 'w-20' : 'w-64'}`}
         >
           <Sidebar
             isCollapsed={isSidebarCollapsed}
-            toggleSidebar={toggleSidebar}
             closeSidebar={closeSidebar}
             isMobile={false}
           />
@@ -82,7 +81,7 @@ const DashboardLayout = ({ children, userName, userEmail, onLogout }) => {
         )}
 
         {/* Page content */}
-        <div className={`flex-1 overflow-y-auto pt-16 p-4`}>
+        <div className={`flex-1 overflow-y-auto pt-16 p-1`}>
           {children}
         </div>
       </div>
