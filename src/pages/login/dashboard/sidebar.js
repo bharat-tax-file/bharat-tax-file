@@ -6,23 +6,7 @@ import {
   FiUsers,
   FiDollarSign,
   FiSettings,
-  FiChevronLeft,
-  FiChevronRight,
-  FiX
 } from 'react-icons/fi';
-
-const Logo = ({ isCollapsed }) => (
-  <div className="flex items-center justify-center gap-3 h-16">
-    <svg className="h-8 w-8 text-indigo-600" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5-10-5-10 5z" />
-    </svg>
-    {!isCollapsed && (
-      <span className="text-xl font-bold text-slate-800 tracking-wider">Invoicy</span>
-    )}
-  </div>
-);
-
-
 
 const navLinks = [
   { id: 'dashboard', name: 'Dashboard', icon: FiHome, path: '/login/dashboard' },
@@ -40,35 +24,9 @@ const Sidebar = ({ isCollapsed, isMobile, toggleSidebar, closeSidebar }) => {
 
   return (
     <aside className="h-full flex flex-col">
-      {/* Header with close button (mobile only) */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200">
-        <Logo isCollapsed={isCollapsed} />
-        <div className="flex items-center gap-2">
-          {!isMobile && (
-            <button
-              onClick={toggleSidebar}
-              className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition"
-              aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            >
-              {isCollapsed ? <FiChevronRight size={20} /> : <FiChevronLeft size={20} />}
-            </button>
-          )}
-          {isMobile && (
-            <button
-              onClick={closeSidebar}
-              className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition"
-              aria-label="Close sidebar"
-            >
-              <FiX size={20} />
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Nav Links */}
-      <nav className="flex-1 overflow-y-auto py-4">
+      {/* Nav Links - Removed all top padding/spacing */}
+      <nav className="flex-1 overflow-y-auto">
         <ul className="space-y-1 px-2">
-          
           {navLinks.map((link) => {
             const isActive = currentPath === link.path;
             return (
@@ -100,8 +58,8 @@ const Sidebar = ({ isCollapsed, isMobile, toggleSidebar, closeSidebar }) => {
         </ul>
       </nav>
 
-      {/* Settings Link */}
-      <div className="px-2 py-4 border-t border-gray-200">
+      {/* Settings Link - Only bottom padding kept */}
+      <div className="px-2 pb-4 border-t border-gray-200">
         <Link href="/login/dashboard/settings" legacyBehavior>
           <a
             onClick={isMobile ? closeSidebar : undefined}
