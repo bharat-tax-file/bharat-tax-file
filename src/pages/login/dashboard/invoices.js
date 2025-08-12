@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
 
 
 
-
+ 
 const InvoicesPage = () => {
   const [invoiceType, setInvoiceType] = useState('tax_invoice');
   const [invoiceData, setInvoiceData] = useState({
