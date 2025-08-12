@@ -76,6 +76,3 @@ input::-webkit-inner-spin-button {
 }
 
 /* Remove number input spinners for Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
