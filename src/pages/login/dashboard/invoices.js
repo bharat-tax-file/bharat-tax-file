@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // Import your actual DashboardLayout component from your project's components folder
-import DashboardLayout from '../../../containers/DashboardLayout';
+import DashboardLayout from '@/containers/DashboardLayout';
 import { requireAuth } from '@/utils/requireAuth';
 
 export async function getServerSideProps(context) {
