@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../../../containers/DashboardLayout';
 import { requireAuth } from '@/utils/requireAuth';
 
-
 export async function getServerSideProps(context) {
   const auth = await requireAuth(context);
 
@@ -24,13 +23,6 @@ export async function getServerSideProps(context) {
   };
 }
 
-
-
-
-
-
-
- 
 const InvoicesPage = () => {
   const [invoiceType, setInvoiceType] = useState('tax_invoice');
   const [invoiceData, setInvoiceData] = useState({
@@ -77,6 +69,18 @@ const InvoicesPage = () => {
   const userName = 'User';
   const companyState = 'DELHI';
 
+  const [totals, setTotals] = useState({
+    subtotal: 0,
+    totalDiscount: 0,
+    totalTaxableValue: 0,
+    totalCGST: 0,
+    totalSGST: 0,
+    totalIGST: 0,
+    totalTax: 0,
+    totalOtherCharges: 0,
+    grandTotal: 0
+  });
+
   const indianStates = [
     "ANDHRA PRADESH", "ARUNACHAL PRADESH", "ASSAM", "BIHAR", "CHHATTISGARH",
     "GOA", "GUJARAT", "HARYANA", "HIMACHAL PRADESH", "JHARKHAND",
@@ -96,13 +100,13 @@ const InvoicesPage = () => {
     const isInterState = invoiceData.placeOfSupply !== companyState;
 
     return {
-      value: value.toFixed(2),
-      discountAmount: discountAmount.toFixed(2),
-      taxableValue: taxableValue.toFixed(2),
-      cgst: isInterState ? 0 : (taxAmount / 2).toFixed(2),
-      sgst: isInterState ? 0 : (taxAmount / 2).toFixed(2),
-      igst: isInterState ? taxAmount.toFixed(2) : 0,
-      amount: (taxableValue + taxAmount).toFixed(2)
+      value: Number.isFinite(value) ? value.toFixed(2) : (0).toFixed(2),
+      discountAmount: Number.isFinite(discountAmount) ? discountAmount.toFixed(2) : (0).toFixed(2),
+      taxableValue: Number.isFinite(taxableValue) ? taxableValue.toFixed(2) : (0).toFixed(2),
+      cgst: isInterState ? (0).toFixed(2) : (Number.isFinite(taxAmount) ? (taxAmount / 2).toFixed(2) : (0).toFixed(2)),
+      sgst: isInterState ? (0).toFixed(2) : (Number.isFinite(taxAmount) ? (taxAmount / 2).toFixed(2) : (0).toFixed(2)),
+      igst: isInterState ? (Number.isFinite(taxAmount) ? taxAmount.toFixed(2) : (0).toFixed(2)) : (0).toFixed(2),
+      amount: Number.isFinite(taxableValue) && Number.isFinite(taxAmount) ? (taxableValue + taxAmount).toFixed(2) : (0).toFixed(2)
     };
   };
 
@@ -112,8 +116,10 @@ const InvoicesPage = () => {
     );
   };
 
+  // run whenever place of supply changes so taxes change to IGST/CGST-SGST properly
   useEffect(() => {
     updateAllItemCalculations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invoiceData.placeOfSupply]);
 
   const handleItemChange = (id, e) => {
@@ -187,6 +193,7 @@ const InvoicesPage = () => {
     setShowPrefillModal(false);
   };
 
+  // Keep computed variables (useful if you want quick values)
   const subtotal = invoiceItems.reduce((sum, item) => sum + parseFloat(item.value || 0), 0);
   const totalDiscount = invoiceItems.reduce((sum, item) => sum + parseFloat(item.discountAmount || 0), 0);
   const totalTaxableValue = invoiceItems.reduce((sum, item) => sum + parseFloat(item.taxableValue || 0), 0);
@@ -196,6 +203,23 @@ const InvoicesPage = () => {
   const totalTax = totalCGST + totalSGST + totalIGST;
   const totalOtherCharges = Object.values(otherCharges).reduce((sum, charge) => sum + charge, 0);
   const grandTotal = totalTaxableValue + totalTax + totalOtherCharges;
+
+  // Keep the UI-updating totals in a small state so they re-render instantly whenever items or charges change
+  useEffect(() => {
+    setTotals({
+      subtotal,
+      totalDiscount,
+      totalTaxableValue,
+      totalCGST,
+      totalSGST,
+      totalIGST,
+      totalTax,
+      totalOtherCharges,
+      grandTotal
+    });
+    // run whenever the numeric data that yields totals changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [invoiceItems, otherCharges, invoiceData.placeOfSupply]);
 
   return (
     <DashboardLayout userName={userName}>
@@ -221,38 +245,35 @@ const InvoicesPage = () => {
         )}
 
         <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-10 text-center tracking-tight">
-          Create Invoice
+          Invoicy
         </h1>
 
         {/* Invoice Type and Options */}
-        <div className="flex flex-col lg:flex-row items-center justify-between mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl shadow-inner">
-          <div className="flex items-center space-x-6 mb-4 lg:mb-0">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Invoice Type</label>
-              <select
-                value={invoiceType}
-                onChange={(e) => setInvoiceType(e.target.value)}
-                className="px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-gray-800 font-semibold min-w-48"
-              >
-                <option value="tax_invoice">Tax Invoice</option>
-                <option value="proforma">Proforma Invoice</option>
-                <option value="credit_note">Credit Note</option>
-                <option value="debit_note">Debit Note</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Currency</label>
-              <div className="flex items-center bg-white border-2 border-gray-200 rounded-xl overflow-hidden focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200 transition-all duration-200">
-                <span className="bg-gray-50 px-4 py-3 text-gray-700 font-semibold border-r border-gray-200">₹ INR</span>
-                <div className="px-4 py-[10px] bg-white text-gray-800 border rounded min-w-20">₹ INR</div>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            
-           
-          </div>
-        </div>
+        <div className="flex flex-col lg:flex-row items-center justify-center mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl shadow-inner">
+  <div className="flex items-center space-x-6">
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">Invoice Type</label>
+      <select
+        value={invoiceType}
+        onChange={(e) => setInvoiceType(e.target.value)}
+        className="px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-gray-800 font-semibold min-w-48"
+      >
+        <option value="tax_invoice">Tax Invoice</option>
+        <option value="proforma">Proforma Invoice</option>
+        <option value="credit_note">Credit Note</option>
+        <option value="debit_note">Debit Note</option>
+      </select>
+    </div>
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">Currency</label>
+      <div className="flex items-center bg-white border-2 border-gray-200 rounded-xl overflow-hidden focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200 transition-all duration-200">
+        <span className="bg-gray-50 px-4 py-3 text-gray-700 font-semibold border-r border-gray-200">₹ INR</span>
+        <div className="px-4 py-[10px] bg-white text-gray-800 border rounded min-w-20">₹ INR</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
         {/* Invoice Details */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-gray-100">
@@ -402,12 +423,14 @@ const InvoicesPage = () => {
                 <tr className="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-200 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                   <th className="py-4 px-3 min-w-40">Item Name</th>
                   <th className="py-4 px-3 w-24">HSN/SAC</th>
-                  <th className="py-4 px-3 w-20">Qty</th>
-                  <th className="py-4 px-3 w-24">Rate</th>
-                  <th className="py-4 px-3 w-24">Value</th>
-                  <th className="py-4 px-3 w-20">Disc%</th>
-                  <th className="py-4 px-3 w-24">Taxable</th>
+                  <th className="py-4 px-3 w-28">Qty</th>
+                  <th className="py-4 px-3 w-32">Rate</th>
+                  <th className="py-4 px-3 w-28">Value</th>
+                  <th className="py-4 px-3 w-28">Disc%</th>
+                  <th className="py-4 px-3 w-28">Taxable</th>
                   <th className="py-4 px-3 w-20">Tax%</th>
+
+
                   {invoiceData.placeOfSupply === companyState ? (
                     <>
                       <th className="py-4 px-3 w-24 text-green-600">CGST</th>
@@ -516,7 +539,7 @@ const InvoicesPage = () => {
 
           <button
             onClick={handleAddItem}
-            className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg transform hover:scale-105"
+            className="flex items-center mt-4 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg transform hover:scale-105"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -562,40 +585,40 @@ const InvoicesPage = () => {
             <div className="space-y-3 text-gray-800">
               <div className="flex justify-between items-center text-lg">
                 <span className="font-semibold">Subtotal:</span>
-                <span className="font-bold">₹{subtotal.toFixed(2)}</span>
+                <span className="font-bold">₹{totals.subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-red-600 text-lg">
                 <span className="font-semibold">Total Discount:</span>
-                <span className="font-bold">-₹{totalDiscount.toFixed(2)}</span>
+                <span className="font-bold">-₹{totals.totalDiscount.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-lg font-bold border-t pt-2 border-gray-200">
                 <span>Taxable Amount:</span>
-                <span>₹{totalTaxableValue.toFixed(2)}</span>
+                <span>₹{totals.totalTaxableValue.toFixed(2)}</span>
               </div>
               {invoiceData.placeOfSupply === companyState ? (
                 <>
                   <div className="flex justify-between items-center text-lg text-green-600">
                     <span className="font-semibold">CGST:</span>
-                    <span className="font-bold">₹{totalCGST.toFixed(2)}</span>
+                    <span className="font-bold">₹{totals.totalCGST.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between items-center text-lg text-green-600">
                     <span className="font-semibold">SGST:</span>
-                    <span className="font-bold">₹{totalSGST.toFixed(2)}</span>
+                    <span className="font-bold">₹{totals.totalSGST.toFixed(2)}</span>
                   </div>
                 </>
               ) : (
                 <div className="flex justify-between items-center text-lg text-blue-600">
                   <span className="font-semibold">IGST:</span>
-                  <span className="font-bold">₹{totalIGST.toFixed(2)}</span>
+                  <span className="font-bold">₹{totals.totalIGST.toFixed(2)}</span>
                 </div>
               )}
               <div className="flex justify-between items-center text-lg">
                 <span className="font-semibold">Other Charges:</span>
-                <span className="font-bold">₹{totalOtherCharges.toFixed(2)}</span>
+                <span className="font-bold">₹{totals.totalOtherCharges.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-4xl font-extrabold border-t-2 border-gray-300 pt-4 text-indigo-700">
                 <span>Grand Total:</span>
-                <span>₹{grandTotal.toFixed(2)}</span>
+                <span>₹{totals.grandTotal.toFixed(2)}</span>
               </div>
             </div>
           </div>
