@@ -3,7 +3,7 @@ import Sidebar from '../pages/login/dashboard/sidebar';
 import Navbar from '../pages/login/dashboard/navbar';
 import MobileNavbar from '../pages/login/dashboard/MobileNavbar'; // your mobile drawer
 
-const DashboardLayout = ({ children, userName, userEmail, onLogout }) => {
+const DashboardLayout = ({ children, userName, userEmail, onLogout, hideNavbar = false }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -69,7 +69,7 @@ const DashboardLayout = ({ children, userName, userEmail, onLogout }) => {
           ${!isMobile ? (isSidebarCollapsed ? 'ml-20' : 'ml-64') : ''}`}
       >
         {/* Desktop Topbar */}
-        {!isMobile && (
+        {!isMobile && !hideNavbar && (
           <div className="fixed top-0 w-full h-16 bg-white border-b z-20 shadow-sm">
             <Navbar
               userName={userName}

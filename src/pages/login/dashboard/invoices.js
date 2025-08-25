@@ -81,6 +81,19 @@ const InvoicesPage = () => {
     grandTotal: 0
   });
 
+  // Bank details and note
+  const [bankDetails, setBankDetails] = useState({
+    bankName: '',
+    accountNumber: '',
+    ifscCode: '',
+    note: ''
+  });
+
+  const handleBankDetailsChange = (e) => {
+    const { name, value } = e.target;
+    setBankDetails((prev) => ({ ...prev, [name]: value }));
+  };
+
   const indianStates = [
     "ANDHRA PRADESH", "ARUNACHAL PRADESH", "ASSAM", "BIHAR", "CHHATTISGARH",
     "GOA", "GUJARAT", "HARYANA", "HIMACHAL PRADESH", "JHARKHAND",
@@ -129,7 +142,9 @@ const InvoicesPage = () => {
         if (item.id === id) {
           const updatedItem = { ...item, [name]: value };
           const calculations = calculateItemValues(updatedItem);
-          return { ...updatedItem, ...calculations };
+          const result = { ...updatedItem, ...calculations };
+          console.log('Invoice Item Updated:', result);
+          return result;
         }
         return item;
       })
@@ -222,8 +237,8 @@ const InvoicesPage = () => {
   }, [invoiceItems, otherCharges, invoiceData.placeOfSupply]);
 
   return (
-    <DashboardLayout userName={userName}>
-      <div className="bg-white p-8 rounded-xl shadow-2xl w-full">
+  <DashboardLayout userName={userName} hideNavbar>
+    <div className="bg-white p-2 sm:p-4 md:p-6 w-full min-h-screen flex flex-col justify-start">
         {/* Prefill Modal */}
         {showPrefillModal && (
           <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
@@ -244,56 +259,55 @@ const InvoicesPage = () => {
           </div>
         )}
 
-        <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-10 text-center tracking-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-6 sm:mb-10 text-center tracking-tight">
           Invoicy
         </h1>
 
         {/* Invoice Type and Options */}
-        <div className="flex flex-col lg:flex-row items-center justify-center mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl shadow-inner">
-  <div className="flex items-center space-x-6">
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">Invoice Type</label>
-      <select
-        value={invoiceType}
-        onChange={(e) => setInvoiceType(e.target.value)}
-        className="px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-gray-800 font-semibold min-w-48"
-      >
-        <option value="tax_invoice">Tax Invoice</option>
-        <option value="proforma">Proforma Invoice</option>
-        <option value="credit_note">Credit Note</option>
-        <option value="debit_note">Debit Note</option>
-      </select>
-    </div>
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">Currency</label>
-      <div className="flex items-center bg-white border-2 border-gray-200 rounded-xl overflow-hidden focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200 transition-all duration-200">
-        <span className="bg-gray-50 px-4 py-3 text-gray-700 font-semibold border-r border-gray-200">₹ INR</span>
-        <div className="px-4 py-[10px] bg-white text-gray-800 border rounded min-w-20">₹ INR</div>
-      </div>
-    </div>
-  </div>
-</div>
-
+        <div className="flex flex-col sm:flex-row items-center justify-center mb-6 sm:mb-8 bg-gradient-to-r from-blue-50 to-indigo-50 p-4 sm:p-6 rounded-xl shadow-inner gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Invoice Type</label>
+              <select
+                value={invoiceType}
+                onChange={(e) => setInvoiceType(e.target.value)}
+                className="px-3 py-2 sm:px-4 sm:py-3 bg-white border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-gray-800 font-semibold min-w-[120px] sm:min-w-48 text-xs sm:text-base"
+              >
+                <option value="tax_invoice">Tax Invoice</option>
+                <option value="proforma">Proforma Invoice</option>
+                <option value="credit_note">Credit Note</option>
+                <option value="debit_note">Debit Note</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Currency</label>
+              <div className="flex items-center bg-white border-2 border-gray-200 rounded-xl overflow-hidden focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200 transition-all duration-200">
+                <span className="bg-gray-50 px-3 py-2 sm:px-4 sm:py-3 text-gray-700 font-semibold border-r border-gray-200 text-xs sm:text-base">₹ INR</span>
+                <div className="px-3 py-2 sm:px-4 sm:py-[10px] bg-white text-gray-800 border rounded min-w-[60px] sm:min-w-20 text-xs sm:text-base">₹ INR</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Invoice Details */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-gray-100">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center mr-3">
+        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8 mb-6 sm:mb-8 border border-gray-100">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 flex items-center">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center mr-2 sm:mr-3">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
             Invoice Details
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div className="group">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Invoice No</label>
+              <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Invoice No</label>
               <input
                 type="text"
                 name="invoiceNo"
                 value={invoiceData.invoiceNo}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 group-hover:border-gray-300"
+                className="w-full px-3 py-2 sm:px-4 sm:py-3 border-2 border-gray-200 rounded-xl shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 group-hover:border-gray-300 text-xs sm:text-base"
                 placeholder="Auto-generated"
                 readOnly
               />
@@ -396,7 +410,7 @@ const InvoicesPage = () => {
         </div>
 
         {/* Invoice Items */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-gray-100">
+        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8 mb-8 border border-gray-100">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-800 flex items-center">
               <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mr-3">
@@ -417,36 +431,23 @@ const InvoicesPage = () => {
             </button>
           </div>
 
-          <div className="overflow-x-auto rounded-xl border-2 border-gray-100">
-            <table className="min-w-full bg-white">
-              <thead>
-                <tr className="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-200 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                  <th className="py-4 px-3 min-w-40">Item Name</th>
-                  <th className="py-4 px-3 w-24">HSN/SAC</th>
-                  <th className="py-4 px-3 w-28">Qty</th>
-                  <th className="py-4 px-3 w-32">Rate</th>
-                  <th className="py-4 px-3 w-28">Value</th>
-                  <th className="py-4 px-3 w-28">Disc%</th>
-                  <th className="py-4 px-3 w-28">Taxable</th>
-                  <th className="py-4 px-3 w-20">Tax%</th>
-
-
-                  {invoiceData.placeOfSupply === companyState ? (
-                    <>
-                      <th className="py-4 px-3 w-24 text-green-600">CGST</th>
-                      <th className="py-4 px-3 w-24 text-green-600">SGST</th>
-                    </>
-                  ) : (
-                    <th className="py-4 px-3 w-24 text-blue-600">IGST</th>
-                  )}
-                  <th className="py-4 px-3 w-28">Amount</th>
-                  <th className="py-4 px-3 w-12"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {invoiceItems.map((item) => (
-                  <tr key={item.id} className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150">
-                    <td className="py-3 px-3">
+          {/* Card layout for mobile, table for desktop */}
+          <div className="space-y-4 sm:space-y-0 sm:block">
+            <div className="sm:hidden">
+              {invoiceItems.map((item) => (
+                <div key={item.id} className="bg-gray-50 rounded-xl p-4 mb-2 shadow border border-gray-200 relative">
+                  <button
+                    onClick={() => handleRemoveItem(item.id)}
+                    className="absolute top-2 right-2 text-red-500 hover:text-red-700 p-1 rounded-full bg-white shadow"
+                    aria-label="Remove item"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="col-span-2">
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">Item Name</label>
                       <input
                         type="text"
                         name="itemName"
@@ -455,8 +456,9 @@ const InvoicesPage = () => {
                         className="w-full px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
                         placeholder="Item Name"
                       />
-                    </td>
-                    <td className="py-3 px-3">
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">HSN/SAC</label>
                       <input
                         type="text"
                         name="hsnSac"
@@ -465,18 +467,24 @@ const InvoicesPage = () => {
                         className="w-full px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
                         placeholder="HSN/SAC"
                       />
-                    </td>
-                    <td className="py-3 px-3">
-                      <input
-                        type="number"
-                        name="quantity"
-                        value={item.quantity}
-                        onChange={(e) => handleItemChange(item.id, e)}
-                        className="w-full px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
-                        min="0"
-                      />
-                    </td>
-                    <td className="py-3 px-3">
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">Qty</label>
+                      <div className="flex items-center gap-1">
+                        <button type="button" onClick={() => handleItemChange(item.id, { target: { name: 'quantity', value: Math.max(0, Number(item.quantity) - 1) } })} className="px-2 py-1 bg-gray-200 rounded text-lg font-bold">-</button>
+                        <input
+                          type="number"
+                          name="quantity"
+                          value={item.quantity}
+                          onChange={(e) => handleItemChange(item.id, e)}
+                          className="w-14 px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-400 text-center"
+                          min="0"
+                        />
+                        <button type="button" onClick={() => handleItemChange(item.id, { target: { name: 'quantity', value: Number(item.quantity) + 1 } })} className="px-2 py-1 bg-gray-200 rounded text-lg font-bold">+</button>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">Rate</label>
                       <input
                         type="number"
                         name="rate"
@@ -486,9 +494,9 @@ const InvoicesPage = () => {
                         min="0"
                         step="0.01"
                       />
-                    </td>
-                    <td className="py-3 px-3 text-sm font-medium text-gray-800">₹{item.value}</td>
-                    <td className="py-3 px-3">
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">Disc%</label>
                       <input
                         type="number"
                         name="discount"
@@ -499,9 +507,9 @@ const InvoicesPage = () => {
                         max="100"
                         step="0.01"
                       />
-                    </td>
-                    <td className="py-3 px-3 text-sm font-medium text-gray-800">₹{item.taxableValue}</td>
-                    <td className="py-3 px-3">
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">Tax%</label>
                       <input
                         type="number"
                         name="taxRate"
@@ -511,41 +519,143 @@ const InvoicesPage = () => {
                         min="0"
                         step="0.01"
                       />
-                    </td>
+                    </div>
+                    <div className="col-span-2 flex flex-wrap gap-2 mt-2">
+                      <span className="bg-gray-100 px-2 py-1 rounded text-xs font-medium">Value: ₹{item.value}</span>
+                      <span className="bg-gray-100 px-2 py-1 rounded text-xs font-medium">Taxable: ₹{item.taxableValue}</span>
+                      {invoiceData.placeOfSupply === companyState ? (
+                        <>
+                          <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">CGST: ₹{item.cgst}</span>
+                          <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">SGST: ₹{item.sgst}</span>
+                        </>
+                      ) : (
+                        <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-medium">IGST: ₹{item.igst}</span>
+                      )}
+                      <span className="bg-indigo-100 text-indigo-700 px-2 py-1 rounded text-xs font-bold">Amount: ₹{item.amount}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* Table for desktop */}
+            <div className="hidden sm:block overflow-x-auto rounded-xl border-2 border-gray-100">
+              <table className="min-w-full bg-white">
+                <thead>
+                  <tr className="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-200 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="py-4 px-3 min-w-40">Item Name</th>
+                    <th className="py-4 px-3 w-24">HSN/SAC</th>
+                    <th className="py-4 px-3 w-28">Qty</th>
+                    <th className="py-4 px-3 w-32">Rate</th>
+                    <th className="py-4 px-3 w-28">Value</th>
+                    <th className="py-4 px-3 w-28">Disc%</th>
+                    <th className="py-4 px-3 w-28">Taxable</th>
+                    <th className="py-4 px-3 w-20">Tax%</th>
                     {invoiceData.placeOfSupply === companyState ? (
                       <>
-                        <td className="py-3 px-3 text-sm font-medium text-green-600">₹{item.cgst}</td>
-                        <td className="py-3 px-3 text-sm font-medium text-green-600">₹{item.sgst}</td>
+                        <th className="py-4 px-3 w-24 text-green-600">CGST</th>
+                        <th className="py-4 px-3 w-24 text-green-600">SGST</th>
                       </>
                     ) : (
-                      <td className="py-3 px-3 text-sm font-medium text-blue-600">₹{item.igst}</td>
+                      <th className="py-4 px-3 w-24 text-blue-600">IGST</th>
                     )}
-                    <td className="py-3 px-3 text-sm font-bold text-gray-800">₹{item.amount}</td>
-                    <td className="py-3 px-3">
-                      <button
-                        onClick={() => handleRemoveItem(item.id)}
-                        className="text-red-500 hover:text-red-700 transition-colors"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                      </button>
-                    </td>
+                    <th className="py-4 px-3 w-28">Amount</th>
+                    <th className="py-4 px-3 w-12"></th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {invoiceItems.map((item) => (
+                    <tr key={item.id} className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-150">
+                      <td className="py-3 px-3">
+                        <input
+                          type="text"
+                          name="itemName"
+                          value={item.itemName}
+                          onChange={(e) => handleItemChange(item.id, e)}
+                          className="w-full px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
+                          placeholder="Item Name"
+                        />
+                      </td>
+                      <td className="py-3 px-3">
+                        <input
+                          type="text"
+                          name="hsnSac"
+                          value={item.hsnSac}
+                          onChange={(e) => handleItemChange(item.id, e)}
+                          className="w-full px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
+                          placeholder="HSN/SAC"
+                        />
+                      </td>
+                      <td className="py-3 px-3">
+                        <input
+                          type="number"
+                          name="quantity"
+                          value={item.quantity}
+                          onChange={(e) => handleItemChange(item.id, e)}
+                          className="w-full px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
+                          min="0"
+                        />
+                      </td>
+                      <td className="py-3 px-3">
+                        <input
+                          type="number"
+                          name="rate"
+                          value={item.rate}
+                          onChange={(e) => handleItemChange(item.id, e)}
+                          className="w-full px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
+                          min="0"
+                          step="0.01"
+                        />
+                      </td>
+                      <td className="py-3 px-3 text-sm font-medium text-gray-800">₹{item.value}</td>
+                      <td className="py-3 px-3">
+                        <input
+                          type="number"
+                          name="discount"
+                          value={item.discount}
+                          onChange={(e) => handleItemChange(item.id, e)}
+                          className="w-full px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
+                          min="0"
+                          max="100"
+                          step="0.01"
+                        />
+                      </td>
+                      <td className="py-3 px-3 text-sm font-medium text-gray-800">₹{item.taxableValue}</td>
+                      <td className="py-3 px-3">
+                        <input
+                          type="number"
+                          name="taxRate"
+                          value={item.taxRate}
+                          onChange={(e) => handleItemChange(item.id, e)}
+                          className="w-full px-2 py-1 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-400"
+                          min="0"
+                          step="0.01"
+                        />
+                      </td>
+                      {invoiceData.placeOfSupply === companyState ? (
+                        <>
+                          <td className="py-3 px-3 text-sm font-medium text-green-600">₹{item.cgst}</td>
+                          <td className="py-3 px-3 text-sm font-medium text-green-600">₹{item.sgst}</td>
+                        </>
+                      ) : (
+                        <td className="py-3 px-3 text-sm font-medium text-blue-600">₹{item.igst}</td>
+                      )}
+                      <td className="py-3 px-3 text-sm font-bold text-gray-800">₹{item.amount}</td>
+                      <td className="py-3 px-3">
+                        <button
+                          onClick={() => handleRemoveItem(item.id)}
+                          className="text-red-500 hover:text-red-700 transition-colors"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-
-          <button
-            onClick={handleAddItem}
-            className="flex items-center mt-4 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg transform hover:scale-105"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-            Add Item
-          </button>
         </div>
 
         {/* Other Charges */}
@@ -579,46 +689,103 @@ const InvoicesPage = () => {
           </div>
         </div>
 
-        {/* Totals Summary */}
-        <div className="flex justify-end mt-8">
-          <div className="w-full md:w-2/3 lg:w-1/2 bg-gray-50 p-6 rounded-2xl shadow-inner border border-gray-200">
-            <div className="space-y-3 text-gray-800">
-              <div className="flex justify-between items-center text-lg">
-                <span className="font-semibold">Subtotal:</span>
-                <span className="font-bold">₹{totals.subtotal.toFixed(2)}</span>
+        {/* Totals Summary & Bank Details */}
+        <div className="flex flex-col lg:flex-row gap-8 justify-end mt-8">
+          {/* Bank Details Card */}
+          <div className="w-full lg:w-1/2 bg-white p-6 rounded-2xl shadow-inner border border-gray-200 mb-4 lg:mb-0">
+            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 10v6a2 2 0 002 2h14a2 2 0 002-2v-6M16 10V6a4 4 0 00-8 0v4" />
+              </svg>
+              Bank Details
+            </h3>
+            <div className="space-y-3">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Bank Name</label>
+                <input
+                  type="text"
+                  name="bankName"
+                  value={bankDetails.bankName}
+                  onChange={handleBankDetailsChange}
+                  className="w-full px-3 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="Enter bank name"
+                />
               </div>
-              <div className="flex justify-between items-center text-red-600 text-lg">
-                <span className="font-semibold">Total Discount:</span>
-                <span className="font-bold">-₹{totals.totalDiscount.toFixed(2)}</span>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Account Number</label>
+                <input
+                  type="text"
+                  name="accountNumber"
+                  value={bankDetails.accountNumber}
+                  onChange={handleBankDetailsChange}
+                  className="w-full px-3 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="Enter account number"
+                />
               </div>
-              <div className="flex justify-between items-center text-lg font-bold border-t pt-2 border-gray-200">
-                <span>Taxable Amount:</span>
-                <span>₹{totals.totalTaxableValue.toFixed(2)}</span>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">IFSC Code</label>
+                <input
+                  type="text"
+                  name="ifscCode"
+                  value={bankDetails.ifscCode}
+                  onChange={handleBankDetailsChange}
+                  className="w-full px-3 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="Enter IFSC code"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Note</label>
+                <textarea
+                  name="note"
+                  value={bankDetails.note}
+                  onChange={handleBankDetailsChange}
+                  className="w-full px-3 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+                  rows={2}
+                  placeholder="Add a note (optional)"
+                />
+              </div>
+            </div>
+          </div>
+          {/* Totals Card - Simple, Small, Professional */}
+          <div className="w-full lg:w-1/2 bg-white p-6 rounded-2xl shadow border border-gray-200">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between py-1">
+                <span className="text-gray-600 font-medium">Subtotal</span>
+                <span className="font-semibold text-gray-900">₹{totals.subtotal.toFixed(2)}</span>
+              </div>
+              <div className="flex items-center justify-between py-1">
+                <span className="text-red-500 font-medium">Total Discount</span>
+                <span className="font-semibold text-red-600">-₹{totals.totalDiscount.toFixed(2)}</span>
+              </div>
+              <div className="flex items-center justify-between py-1">
+                <span className="text-yellow-600 font-medium">Taxable Amount</span>
+                <span className="font-semibold text-gray-900">₹{totals.totalTaxableValue.toFixed(2)}</span>
               </div>
               {invoiceData.placeOfSupply === companyState ? (
                 <>
-                  <div className="flex justify-between items-center text-lg text-green-600">
-                    <span className="font-semibold">CGST:</span>
-                    <span className="font-bold">₹{totals.totalCGST.toFixed(2)}</span>
+                  <div className="flex items-center justify-between py-1">
+                    <span className="text-green-600 font-medium">CGST</span>
+                    <span className="font-semibold text-green-700">₹{totals.totalCGST.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between items-center text-lg text-green-600">
-                    <span className="font-semibold">SGST:</span>
-                    <span className="font-bold">₹{totals.totalSGST.toFixed(2)}</span>
+                  <div className="flex items-center justify-between py-1">
+                    <span className="text-green-600 font-medium">SGST</span>
+                    <span className="font-semibold text-green-700">₹{totals.totalSGST.toFixed(2)}</span>
                   </div>
                 </>
               ) : (
-                <div className="flex justify-between items-center text-lg text-blue-600">
-                  <span className="font-semibold">IGST:</span>
-                  <span className="font-bold">₹{totals.totalIGST.toFixed(2)}</span>
+                <div className="flex items-center justify-between py-1">
+                  <span className="text-blue-600 font-medium">IGST</span>
+                  <span className="font-semibold text-blue-700">₹{totals.totalIGST.toFixed(2)}</span>
                 </div>
               )}
-              <div className="flex justify-between items-center text-lg">
-                <span className="font-semibold">Other Charges:</span>
-                <span className="font-bold">₹{totals.totalOtherCharges.toFixed(2)}</span>
+              <div className="flex items-center justify-between py-1">
+                <span className="text-indigo-600 font-medium">Other Charges</span>
+                <span className="font-semibold text-indigo-700">₹{totals.totalOtherCharges.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between items-center text-4xl font-extrabold border-t-2 border-gray-300 pt-4 text-indigo-700">
-                <span>Grand Total:</span>
-                <span>₹{totals.grandTotal.toFixed(2)}</span>
+              <hr className="my-2 border-gray-200" />
+              <div className="flex items-center justify-between py-2 bg-gray-100 rounded">
+                <span className="text-base font-bold text-gray-800">Grand Total</span>
+                <span className="text-base font-bold text-green-700">₹{totals.grandTotal.toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -632,7 +799,16 @@ const InvoicesPage = () => {
           <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-lg font-semibold">
             Preview
           </button>
-          <button className="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 shadow-xl font-bold text-lg transform hover:scale-105">
+          <button
+            className="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 shadow-xl font-bold text-lg transform hover:scale-105"
+            onClick={() => {
+              console.log('--- Invoice Data ---');
+              console.log('Invoice Details:', invoiceData);
+              console.log('Invoice Items:', invoiceItems);
+              console.log('Other Charges:', otherCharges);
+              console.log('Totals:', totals);
+            }}
+          >
             Generate Invoice
           </button>
         </div>
@@ -642,3 +818,4 @@ const InvoicesPage = () => {
 };
 
 export default InvoicesPage;
+  
