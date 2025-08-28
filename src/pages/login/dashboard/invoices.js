@@ -807,6 +807,30 @@ const InvoicesPage = () => {
               console.log('Invoice Items:', invoiceItems);
               console.log('Other Charges:', otherCharges);
               console.log('Totals:', totals);
+              console.log('Company State:', companyState);
+              console.log('Bank Details:', bankDetails);
+              
+              fetch('/api/invoices', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  invoiceData,
+                  invoiceItems,
+                  otherCharges,
+                  totals,
+                  companyState,
+                  bankDetails,
+                }),
+              })
+                .then(res => res.json())
+                .then(data => {
+                  alert('Invoice saved to database!');
+                  console.log(data);
+                })
+                .catch(err => {
+                  alert('Error saving invoice');
+                  console.error(err);
+                });
             }}
           >
             Generate Invoice
@@ -818,4 +842,3 @@ const InvoicesPage = () => {
 };
 
 export default InvoicesPage;
-  
